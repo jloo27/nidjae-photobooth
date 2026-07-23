@@ -533,10 +533,12 @@
       }
     }
 
-    function setFilter(filterClass, name) {
+    function setFilter(filterClass, name, btnEl) {
       currentFilter = filterClass;
       video.className = `w-full h-full object-cover filter-${filterClass} transition-all duration-300 ${isMirrored ? 'mirror' : ''}`;
-      activeFilterLabel.innerText = `Filter: ${name}`;
+      if (activeFilterLabel) {
+        activeFilterLabel.innerText = `Filter: ${name}`;
+      }
 
       // Update UI active buttons
       document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -544,8 +546,11 @@
         btn.classList.add('bg-[var(--warm-white)]', 'border-[var(--parchment)]');
       });
 
-      event.currentTarget.classList.add('active-filter', 'bg-[var(--sage-bg)]', 'border-[var(--sage-light)]');
-      event.currentTarget.classList.remove('bg-[var(--warm-white)]', 'border-[var(--parchment)]');
+      const target = btnEl || (typeof event !== 'undefined' ? event.currentTarget : null);
+      if (target) {
+        target.classList.add('active-filter', 'bg-[var(--sage-bg)]', 'border-[var(--sage-light)]');
+        target.classList.remove('bg-[var(--warm-white)]', 'border-[var(--parchment)]');
+      }
     }
 
     async function startAutoSession() {
