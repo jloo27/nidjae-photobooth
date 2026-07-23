@@ -177,6 +177,54 @@
     .flash-active {
       animation: flash-anim 0.4s ease-out forwards;
     }
+
+    @media (max-width: 640px) {
+
+      /* Shutter bar */
+      #shutter-bar {
+        gap: 6px;
+        flex-wrap: nowrap;
+      }
+
+      /* Timer area */
+      #shutter-bar label {
+        font-size: 11px;
+      }
+
+      #shutter-bar select {
+        width: 55px;
+        padding: 4px 6px;
+        font-size: 10px;
+      }
+
+      /* AUTO button */
+      #btn-take-auto {
+        padding: 10px 12px;
+        min-width: 0;
+        flex: 1;
+      }
+
+      /* SINGLE button */
+      #btn-take-single {
+        padding: 10px;
+        min-width: 44px;
+        flex-shrink: 0;
+      }
+
+      #btn-take-single,
+      #btn-take-auto {
+        font-size: 10px;
+      }
+
+      #btn-take-single i,
+      #btn-take-auto i {
+        font-size: 10px;
+      }
+
+      #btn-take-single span {
+        display: none;
+      }
+    }
   </style>
 </head>
 
@@ -190,7 +238,7 @@
         <a href="x.com/731chapters"><img src="logo.png" alt="Logo" class="h-10 w-auto" /></a>
       </div>
 
-      <button onclick="resetWholeBooth()"
+      <button onclick="resetWholeBooth()" style="font-family: 'DM Sans', sans-serif;"
         class="px-3 py-1.5 text-xs font-medium rounded-full bg-[var(--parchment)] text-[var(--brown)] hover:bg-[var(--mauve-light)] transition flex items-center gap-1.5">
         <i class="fa-solid fa-rotate-left"></i>
         <span class="hidden sm:inline">RETAKE</span>
@@ -199,62 +247,11 @@
   </header>
 
   <main class="max-w-6xl mx-auto px-4 py-6 w-full flex-1 grid grid-cols-1 gap-8 items-start">
-
-    <!-- Photobooth preview and live slot result -->
-    <section class="col-span-1 flex flex-col gap-5">
-      <div
-        class="bg-[var(--warm-white)] p-5 rounded-3xl border border-[var(--parchment)] shadow-sm flex flex-col gap-4">
-        <div class="flex items-center justify-between">
-          <div>
-            <h2 class="text-lg font-bold text-[var(--brown)] font-heading">Hasil Frame Photobooth</h2>
-          </div>
-          <span id="status-badge"
-            class="px-2.5 py-1 rounded-full bg-[var(--sage-bg)] text-[var(--sage)] text-xs font-semibold font-heading">
-            0/4 Terisi
-          </span>
-        </div>
-
-        <div
-          class="mt-2 bg-[var(--sage-bg)] p-3 rounded-2xl border border-[var(--parchment)] flex justify-center items-start min-h-[420px] overflow-auto">
-          <canvas id="photobooth-canvas" class="w-full h-auto rounded-3xl shadow-lg transition-all duration-300"
-            style="max-height: 780px; display: block; width: auto; height: auto; background: #fff9f0; border: 3px solid rgba(122,92,72,0.25); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.4);"></canvas>
-        </div>
-
-        <div class="grid grid-cols-4 gap-2 text-center text-xs font-heading">
-          <button onclick="retakeSlot(0)"
-            class="p-1.5 bg-[var(--warm-white)] border border-[var(--brown-light)] hover:bg-[var(--mauve-light)] rounded-lg transition"
-            title="Foto Ulang Frame 1">
-            #1 <i class="fa-solid fa-rotate-left text-[10px]"></i>
-          </button>
-          <button onclick="retakeSlot(1)"
-            class="p-1.5 bg-[var(--warm-white)] border border-[var(--brown-light)] hover:bg-[var(--mauve-light)] rounded-lg transition"
-            title="Foto Ulang Frame 2">
-            #2 <i class="fa-solid fa-rotate-left text-[10px]"></i>
-          </button>
-          <button onclick="retakeSlot(2)"
-            class="p-1.5 bg-[var(--warm-white)] border border-[var(--brown-light)] hover:bg-[var(--mauve-light)] rounded-lg transition"
-            title="Foto Ulang Frame 3">
-            #3 <i class="fa-solid fa-rotate-left text-[10px]"></i>
-          </button>
-          <button onclick="retakeSlot(3)"
-            class="p-1.5 bg-[var(--warm-white)] border border-[var(--brown-light)] hover:bg-[var(--mauve-light)] rounded-lg transition"
-            title="Foto Ulang Frame 4">
-            #4 <i class="fa-solid fa-rotate-left text-[10px]"></i>
-          </button>
-        </div>
-
-        <div id="notif-download" class="notif-download">
-          <p style="align-items: center; text-align: center;">Right click or hold this photo preview to download the
-            photobooth result</p>
-        </div>
-      </div>
-    </section>
-
     <section class="col-span-1 flex flex-col gap-5">
       <!-- Filter Selector Pills -->
       <div class="bg-[var(--warm-white)] p-3 rounded-2xl border border-[var(--parchment)] shadow-sm">
-        <p class="text-xs font-bold text-[var(--brown-mid)] uppercase tracking-wider mb-2 font-heading px-1">Pilih
-          Filter Foto</p>
+        <p class="text-xs font-bold text-[var(--brown-mid)] uppercase tracking-wider mb-2 font-heading px-1">PHOTO
+          FILTERS</p>
         <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
           <button onclick="setFilter('normal', 'Normal')"
             class="filter-btn active-filter px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap bg-[var(--sage-bg)] text-[var(--brown)] border border-[var(--sage-light)] transition">
@@ -280,37 +277,73 @@
             class="filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap bg-[var(--warm-white)] text-[var(--brown)] border border-[var(--parchment)] hover:bg-[var(--isabeline)] transition">
             Rosy Mauve
           </button>
+          <button onclick="setFilter('dramatic', 'Dramatic')"
+            class="filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap bg-[var(--warm-white)] text-[var(--brown)] border border-[var(--parchment)] hover:bg-[var(--isabeline)] transition">
+            Dramatic
+          </button>
         </div>
       </div>
-
-      <!-- Action Shutter Bar -->
+    </section>
+    <!-- Photobooth preview and live slot result -->
+    <section class="col-span-1 flex flex-col gap-5">
       <div
-        class="bg-[var(--warm-white)] p-4 rounded-2xl border border-[var(--parchment)] shadow-sm flex flex-wrap items-center justify-between gap-3">
-        <div class="flex items-center gap-3">
-          <label class="text-xs font-semibold text-[var(--brown)] font-heading flex items-center gap-1.5">
-            <i class="fa-solid fa-stopwatch text-[var(--mauve)]"></i>
-            Timer:
-          </label>
-          <select id="timer-select"
-            class="bg-[var(--mauve-bg)] border border-[var(--mauve-light)] text-[var(--text)] text-xs font-bold rounded-lg px-2.5 py-1.5 focus:outline-none font-heading">
-            <option value="3">3 Detik</option>
-            <option value="5">5 Detik</option>
-            <option value="1">1 Detik</option>
-          </select>
+        class="bg-[var(--warm-white)] p-5 rounded-3xl border border-[var(--parchment)] shadow-sm flex flex-col gap-4">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div>
+            <h2 class="text-lg font-bold text-[var(--brown)] font-heading">RESULT PREVIEW</h2>
+          </div>
+          <div class="flex items-center gap-3">
+            <span id="status-badge"
+              class="px-2.5 py-1 rounded-full bg-[var(--sage-bg)] text-[var(--sage)] text-xs font-semibold font-heading">
+              0/4 PHOTOS
+            </span>
+          </div>
+        </div>
+        <!-- Action Shutter Bar -->
+        <div id="shutter-bar" class="sticky top-[72px] z-30 flex flex-wrap items-center justify-between gap-3
+                bg-[var(--warm-white)]/95 backdrop-blur-md py-3 px-1
+                border-b border-[var(--parchment)]">
+          <div class="flex items-center gap-3">
+            <label class="text-xs font-semibold text-[var(--brown)] font-heading flex items-center gap-1.5">
+              <i class="fa-solid fa-stopwatch text-[var(--mauve)]"></i>
+              Timer:
+            </label>
+            <select id="timer-select"
+              class="bg-[var(--mauve-bg)] border border-[var(--mauve-light)] text-[var(--text)] text-xs font-bold rounded-lg px-2.5 py-1.5 focus:outline-none font-heading">
+              <option value="1">1 s</option>
+              <option value="3">3 s</option>
+              <option value="5">5 s</option>
+            </select>
+          </div>
+          <div class="flex items-center gap-2 w-full sm:w-auto">
+            <button id="btn-take-auto" onclick="startAutoSession()"
+              class="flex-1 sm:flex-initial px-6 py-3 bg-[var(--brown)] hover:bg-[var(--brown-mid)] text-[var(--warm-white)] rounded-xl font-bold text-sm transition shadow-md flex items-center justify-center gap-2 font-heading">
+              <i class="fa-solid fa-camera text-base"></i>
+              4 PHOTOS (AUTO)
+            </button>
+            <button id="btn-take-single" onclick="captureSinglePhoto()"
+              class="px-4 py-3 bg-[var(--mauve)] hover:bg-[var(--mauve-light)] text-[var(--brown)] rounded-xl font-bold text-sm transition shadow-sm flex items-center justify-center gap-1.5 font-heading"
+              title="SINGLE PHOTO">
+              <i class="fa-solid fa-camera text-base"></i>
+              SINGLE PHOTO
+            </button>
+          </div>
+        </div>
+        <div id="photobooth-preview-container"
+          class="relative mt-2 bg-[var(--sage-bg)] p-3 rounded-2xl border border-[var(--parchment)] flex justify-center items-start min-h-[420px] overflow-auto">
+          <canvas id="photobooth-canvas" class="w-full h-auto rounded-3xl shadow-lg transition-all duration-300"
+            style="max-height: 780px; display: block; width: auto; height: auto; background: #fff9f0; border: 3px solid rgba(122,92,72,0.25); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.4);"></canvas>
+          <div id="countdown-overlay"
+            class="hidden absolute inset-0 z-30 flex items-center justify-center bg-black/50 text-white">
+            <span id="countdown-num"
+              class="text-[5rem] font-bold tracking-[0.04em] px-8 py-6 rounded-3xl bg-white/15 backdrop-blur-sm shadow-lg"></span>
+          </div>
+          <div id="flash-effect" class="hidden absolute inset-0 z-40 bg-white opacity-20"></div>
         </div>
 
-        <div class="flex items-center gap-2 w-full sm:w-auto">
-          <button id="btn-take-auto" onclick="startAutoSession()"
-            class="flex-1 sm:flex-initial px-6 py-3 bg-[var(--brown)] hover:bg-[var(--brown-mid)] text-[var(--warm-white)] rounded-xl font-bold text-sm transition shadow-md flex items-center justify-center gap-2 font-heading">
-            <i class="fa-solid fa-camera text-base"></i>
-            Foto 4 Sekaligus (Otomatis)
-          </button>
-          <button id="btn-take-single" onclick="captureSinglePhoto()"
-            class="px-4 py-3 bg-[var(--mauve)] hover:bg-[var(--mauve-light)] text-[var(--brown)] rounded-xl font-bold text-sm transition shadow-sm flex items-center justify-center gap-1.5 font-heading"
-            title="Foto 1 Frame Ini Saja">
-            <i class="fa-solid fa-bolt"></i>
-            <span class="hidden sm:inline">Tunggal</span>
-          </button>
+        <div id="notif-download" class="notif-download">
+          <p style="align-items: center; text-align: center;">Right click or hold this photo preview to download the
+            photobooth result</p>
         </div>
       </div>
     </section>
@@ -324,21 +357,19 @@
   <div id="toast"
     class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-[var(--brown)] text-[var(--warm-white)] px-5 py-2.5 rounded-full shadow-lg text-xs font-semibold font-heading opacity-0 transition-all duration-300 pointer-events-none z-50 flex items-center gap-2">
     <i class="fa-solid fa-circle-info text-[var(--mauve-light)]"></i>
-    <span id="toast-msg">Notifikasi</span>
+    <span id="toast-msg">Notification</span>
   </div>
 
-  <div id="webcam-elements" class="hidden">
-    <video id="webcam" autoplay playsinline muted class="hidden"></video>
-    <div id="countdown-overlay" class="hidden">
-      <span id="countdown-num">3</span>
-    </div>
-    <div id="flash-effect" class="hidden"></div>
+  <div id="webcam-elements"
+    style="position:absolute; width:1px; height:1px; overflow:hidden; left:-9999px; top:-9999px;">
+    <video id="webcam" autoplay playsinline muted style="width:1px; height:1px; opacity:0;"></video>
   </div>
   <div id="camera-fallback" class="hidden"></div>
   <canvas id="hidden-capture-canvas" class="hidden"></canvas>
 
   <script>
     const photos = [null, null, null, null];
+    const photoImageCache = [null, null, null, null]; // cached decoded Image objects per slot, avoids re-decode races
     let activeSlotIndex = 0;
     let currentFilter = 'normal';
     let currentFacingMode = 'user';
@@ -373,6 +404,7 @@
     const templateFrameImage = new Image();
     let templateFrameLoaded = false;
     let isRenderingFinalCanvas = false;
+    let renderFinalCanvasQueued = false;
     let previewRenderRequested = false;
 
     function requestPreviewRender() {
@@ -451,21 +483,6 @@
       }
     }
 
-    function toggleAudioFeedback() {
-      audioEnabled = !audioEnabled;
-      const icon = document.getElementById('sound-icon');
-      const text = document.getElementById('sound-text');
-      if (audioEnabled) {
-        icon.className = 'fa-solid fa-volume-high';
-        text.innerText = 'Suara On';
-        showToast('Suara Diaktifkan');
-      } else {
-        icon.className = 'fa-solid fa-volume-xmark';
-        text.innerText = 'Suara Off';
-        showToast('Suara Dimatikan');
-      }
-    }
-
     let currentStream = null;
 
     async function initCamera() {
@@ -489,7 +506,7 @@
       } catch (err) {
         console.error('Camera access error:', err);
         cameraFallback.classList.remove('hidden');
-        showToast('Gagal mengakes kamera');
+        showToast("Can't Access the Camera");
       }
     }
 
@@ -502,17 +519,17 @@
         video.classList.remove('mirror');
       }
       initCamera();
-      showToast('Kamera diganti');
+      showToast('Camera changed');
     }
 
     function toggleMirror() {
       isMirrored = !isMirrored;
       if (isMirrored) {
         video.classList.add('mirror');
-        showToast('Mode cermin aktif');
+        showToast('Mirror Mode');
       } else {
         video.classList.remove('mirror');
-        showToast('Mode cermin non-aktif');
+        showToast('Non-Mirror Mode');
       }
     }
 
@@ -536,7 +553,7 @@
       isSessionRunning = true;
       disableActionButtons(true);
 
-      showToast('Sesi foto otomatis dimulai!');
+      showToast('START 4 SNAPS');
 
       for (let i = 0; i < 4; i++) {
         activeSlotIndex = i;
@@ -551,11 +568,16 @@
 
       isSessionRunning = false;
       disableActionButtons(false);
-      showToast('Selesai! 4 foto berhasil diambil.');
+      showToast('4 PHOTOS IS TAKEN');
     }
 
     async function captureSinglePhoto() {
       if (isSessionRunning) return;
+      if (video.readyState < 2) {
+        showToast('The Camera is not ready yet, wait a moment.');
+        return;
+      }
+
       isSessionRunning = true;
       disableActionButtons(true);
 
@@ -571,6 +593,7 @@
 
       activeSlotIndex = targetSlot;
       updateSlotIndicator();
+      await renderFinalCanvas();
 
       const capturedSlot = activeSlotIndex;
       await runCountdown();
@@ -578,18 +601,17 @@
 
       isSessionRunning = false;
       disableActionButtons(false);
-      showToast(`Foto slot #${capturedSlot + 1} berhasil diambil`);
-    }
-
-    function retakeSlot(index) {
-      if (isSessionRunning) return;
-      activeSlotIndex = index;
-      updateSlotIndicator();
-      captureSinglePhoto();
+      showToast(`#${capturedSlot + 1} photos is snapped`);
     }
 
     function updateSlotIndicator() {
-      slotIndicator.innerText = `Foto ${activeSlotIndex + 1} dari 4`;
+      if (slotIndicator) {
+        slotIndicator.innerText = `Foto ${activeSlotIndex + 1} dari 4`;
+      }
+      const previewContainer = document.getElementById('photobooth-preview-container');
+      if (previewContainer) {
+        previewContainer.scrollTop = 0;
+      }
     }
 
     function runCountdown() {
@@ -598,6 +620,7 @@
         let count = timerSecs;
 
         countdownOverlay.classList.remove('hidden');
+        countdownOverlay.style.pointerEvents = 'none';
         countdownNum.innerText = count;
         playBeepSound(500, 0.1);
 
@@ -644,7 +667,12 @@
 
       photos[activeSlotIndex] = hiddenCanvas.toDataURL('image/jpeg', 0.95);
 
-      activeSlotIndex = (activeSlotIndex + 1) % 4;
+      const nextEmptySlot = photos.findIndex(p => p === null);
+      if (nextEmptySlot !== -1) {
+        activeSlotIndex = nextEmptySlot;
+      } else {
+        activeSlotIndex = (activeSlotIndex + 1) % 4;
+      }
       updateSlotIndicator();
 
       renderFinalCanvas();
@@ -655,13 +683,7 @@
       if (video.readyState < 2 || photos[activeSlotIndex] !== null) {
         return;
       }
-
-      requestAnimationFrame(async () => {
-        await renderFinalCanvas();
-        if (photos[activeSlotIndex] === null) {
-          startLivePreviewLoop();
-        }
-      });
+      requestPreviewRender();
     }
 
     function applyCssFilterToCanvasCtx(ctx, filterType) {
@@ -681,12 +703,32 @@
         case 'rosy':
           ctx.filter = 'hue-rotate(-25deg) saturate(1.3) contrast(1.08) brightness(1.02)';
           break;
+        case 'dramatic':
+          ctx.filter = 'hue-rotate(-25deg) saturate(1.1) contrast(1.35) brightness(0.9)';
+          break;
         default:
           ctx.filter = 'none';
       }
     }
 
     async function renderFinalCanvas() {
+      if (isRenderingFinalCanvas) {
+        renderFinalCanvasQueued = true;
+        return;
+      }
+      isRenderingFinalCanvas = true;
+      try {
+        await renderFinalCanvasInternal();
+      } finally {
+        isRenderingFinalCanvas = false;
+        if (renderFinalCanvasQueued) {
+          renderFinalCanvasQueued = false;
+          renderFinalCanvas();
+        }
+      }
+    }
+
+    async function renderFinalCanvasInternal() {
       const frameColorKey = 'warm-white';
       const frameBgColor = '#FDFAF4';
       const titleText = 'SNAP STUDIO';
@@ -697,7 +739,7 @@
       }).toUpperCase();
 
       const filledCount = photos.filter(p => p !== null).length;
-      statusBadge.innerText = `${filledCount}/4 Terisi`;
+      statusBadge.innerText = `${filledCount}/4 PHOTOS`;
       if (btnDownload) {
         btnDownload.disabled = filledCount === 0;
       }
@@ -773,11 +815,21 @@
           ctx.font = '600 24px "DM Sans", sans-serif';
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
-          ctx.fillText(`Slot Foto #${slotNum}`, x + w / 2, y + h / 2 - 10);
+          ctx.fillText(`#${slotNum} PHOTO SLOT`, x + w / 2, y + h / 2 - 10);
 
           ctx.fillStyle = '#9A8070';
-          ctx.font = 'italic 18px "EB Garamond", serif';
-          ctx.fillText(`(Belum diambil)`, x + w / 2, y + h / 2 + 20);
+          ctx.font = '500 20px "EB Garamond", serif';
+          ctx.fillText(`NOT SNAPPED YET`, x + w / 2, y + h / 2 + 20);
+          ctx.restore();
+          resolve();
+          return;
+        }
+
+        const cacheIndex = slotNum - 1;
+        const cachedImg = photoImageCache[cacheIndex];
+
+        if (cachedImg && cachedImg.src === dataUrl && cachedImg.complete && cachedImg.naturalWidth > 0) {
+          drawImageIntoSlotBox(ctx, cachedImg, x, y, w, h);
           ctx.restore();
           resolve();
           return;
@@ -785,23 +837,8 @@
 
         const img = new Image();
         img.onload = () => {
-          const aspectImg = img.width / img.height;
-          const aspectBox = w / h;
-
-          let sx, sy, sWidth, sHeight;
-          if (aspectImg > aspectBox) {
-            sHeight = img.height;
-            sWidth = img.height * aspectBox;
-            sx = (img.width - sWidth) / 2;
-            sy = 0;
-          } else {
-            sWidth = img.width;
-            sHeight = img.width / aspectBox;
-            sx = 0;
-            sy = (img.height - sHeight) / 2;
-          }
-
-          ctx.drawImage(img, sx, sy, sWidth, sHeight, x, y, w, h);
+          photoImageCache[cacheIndex] = img;
+          drawImageIntoSlotBox(ctx, img, x, y, w, h);
           ctx.restore();
           resolve();
         };
@@ -809,30 +846,38 @@
       });
     }
 
-    /* Download Output Canvas */
-    function downloadPhotobooth() {
-      if (photos.filter(p => p !== null).length === 0) {
-        showToast('Ambil foto terlebih dahulu!');
-        return;
+    function drawImageIntoSlotBox(ctx, img, x, y, w, h) {
+      const aspectImg = img.width / img.height;
+      const aspectBox = w / h;
+
+      let sx, sy, sWidth, sHeight;
+      if (aspectImg > aspectBox) {
+        sHeight = img.height;
+        sWidth = img.height * aspectBox;
+        sx = (img.width - sWidth) / 2;
+        sy = 0;
+      } else {
+        sWidth = img.width;
+        sHeight = img.width / aspectBox;
+        sx = 0;
+        sy = (img.height - sHeight) / 2;
       }
 
-      const link = document.createElement('a');
-      link.download = `photobooth-4grid-${Date.now()}.jpg`;
-      link.href = mainCanvas.toDataURL('image/jpeg', 0.95);
-      link.click();
-
-      showToast('Foto photobooth berhasil diunduh!');
+      ctx.drawImage(img, sx, sy, sWidth, sHeight, x, y, w, h);
     }
 
     /* Reset Photobooth state */
     function resetWholeBooth() {
-      for (let i = 0; i < 4; i++) photos[i] = null;
+      for (let i = 0; i < 4; i++) {
+        photos[i] = null;
+        photoImageCache[i] = null;
+      }
       activeSlotIndex = 0;
+      isSessionRunning = false;
       updateSlotIndicator();
       renderFinalCanvas();
-      showToast('Photobooth telah direset');
+      requestPreviewRender();
     }
-
     function disableActionButtons(disabled) {
       document.getElementById('btn-take-auto').disabled = disabled;
       document.getElementById('btn-take-single').disabled = disabled;
