@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Musim Mekarnya Rasa Booth</title>
+  <title>Snap the Memories - Musim Mekarnya Rasa Nidjae</title>
   <link rel="icon" href="https://musim-mekarnya-rasa-fanzine.netlify.app/logo.png" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -55,7 +55,6 @@
     button,
     input,
     select,
-
     .font-heading {
       font-family: 'DM Sans', sans-serif;
     }
@@ -91,14 +90,14 @@
       width: 150px;
       flex: 1;
       height: 1px;
-      background: linear-gradient(to right, var(--sage-light), transparent);
+      background: linear-gradient(to right, var(--text), transparent);
     }
 
     .sec-rule-left {
       width: 150px;
       flex: 1;
       height: 1px;
-      background: linear-gradient(to left, var(--sage-light), transparent);
+      background: linear-gradient(to left, var(--text), transparent);
     }
 
     /* Filter Presets */
@@ -304,7 +303,7 @@
 
   <!-- Top Header -->
   <header
-    class="border-b border-[var(--parchment)] bg-[var(--warm-white)]/90 backdrop-blur-md sticky top-0 z-40 flex justify-center items-center py-2 px-2">
+    class="border-b border-[var(--parchment)] bg-[var(--warm-white)]/90 backdrop-blur-md static top-0 z-40 flex justify-center items-center py-2 px-2">
     <a id="logo" href="x.com/731chapters"><img src="logo.png" alt="Logo" class="h-10 w-auto" /></a>
   </header>
 
@@ -405,13 +404,6 @@
               class="text-[2rem] font-bold tracking-[0.04em] px-8 py-6 bg-white/15 backdrop-blur-sm shadow-lg"></span>
           </div>
           <div id="flash-effect" class="hidden absolute inset-0 z-40 bg-white opacity-20"></div>
-        </div>
-
-        <div class="flex flex-col items-center sm:flex-row sm:items-center sm:justify-between gap-3">
-          <div id="notif-download" class="notif-download">
-            <p style="align-items: center; text-align: center;">Tap the DOWNLOAD button above to save the photobooth
-              result, or right click / hold this preview as a backup option</p>
-          </div>
         </div>
       </div>
     </section>
