@@ -180,6 +180,10 @@
 
     @media (max-width: 640px) {
 
+      #title-preview h2 {
+        font-family: 10px;
+      }
+
       /* Shutter bar */
       #shutter-bar {
         gap: 6px;
@@ -211,6 +215,7 @@
         flex-shrink: 0;
       }
 
+
       #btn-take-single,
       #btn-take-auto {
         font-size: 10px;
@@ -223,6 +228,18 @@
 
       #btn-take-single span {
         display: none;
+      }
+    }
+
+    @media (max-width: 453px) {
+      #shutter-btn {
+        display: grid;
+      }
+
+      #btn-take-single,
+      #btn-take-auto {
+        padding: 5px;
+        font-size: 8px;
       }
     }
   </style>
@@ -289,7 +306,7 @@
       <div
         class="bg-[var(--warm-white)] p-5 rounded-3xl border border-[var(--parchment)] shadow-sm flex flex-col gap-4">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <div>
+          <div id="title-preview">
             <h2 class="text-lg font-bold text-[var(--brown)] font-heading">RESULT PREVIEW</h2>
           </div>
           <div class="flex items-center gap-3">
@@ -315,7 +332,7 @@
               <option value="5">5 s</option>
             </select>
           </div>
-          <div class="flex items-center gap-2 w-full sm:w-auto">
+          <div id="shutter-btn" class="flex items-center gap-2 w-full sm:w-auto">
             <button id="btn-take-auto" onclick="startAutoSession()"
               class="flex-1 sm:flex-initial px-6 py-3 bg-[var(--brown)] hover:bg-[var(--brown-mid)] text-[var(--warm-white)] rounded-xl font-bold text-sm transition shadow-md flex items-center justify-center gap-2 font-heading">
               <i class="fa-solid fa-camera text-base"></i>
