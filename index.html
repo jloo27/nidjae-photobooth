@@ -55,19 +55,6 @@
     button,
     input,
     select,
-    .logo {
-      margin-left: 10px;
-      padding: 0px;
-      filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.2));
-    }
-
-    .logo:hover {
-      filter: drop-shadow(2px 2px 4px var(--brown-mid));
-    }
-
-    .logo a img {
-      height: 40px;
-    }
 
     .font-heading {
       font-family: 'DM Sans', sans-serif;
@@ -247,25 +234,12 @@
 
 <body
   class="min-h-screen flex flex-col justify-between antialiased selection:bg-[var(--mauve-light)] selection:text-[var(--brown)]">
-
-  <!-- Top Header -->
-  <header class="border-b border-[var(--parchment)] bg-[var(--warm-white)]/90 backdrop-blur-md sticky top-0 z-40">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-      <div class="logo">
-        <a href="x.com/731chapters"><img src="logo.png" alt="Logo" class="h-10 w-auto" /></a>
-      </div>
-
-      <button onclick="resetWholeBooth()" style="font-family: 'DM Sans', sans-serif;"
-        class="px-3 py-1.5 text-xs font-medium rounded-full bg-[var(--parchment)] text-[var(--brown)] hover:bg-[var(--mauve-light)] transition flex items-center gap-1.5">
-        <i class="fa-solid fa-rotate-left"></i>
-        <span class="hidden sm:inline">RETAKE</span>
-      </button>
-    </div>
+  <header
+    class="border-b border-[var(--parchment)] bg-[var(--warm-white)]/90 backdrop-blur-md static top-0 z-40 flex justify-center items-center py-2 px-2">
+    <a id="logo" href="x.com/731chapters"><img src="logo.png" alt="Logo" class="h-10 w-auto" /></a>
   </header>
-
   <main class="max-w-6xl mx-auto px-4 py-6 w-full flex-1 grid grid-cols-1 gap-8 items-start">
     <section class="col-span-1 flex flex-col gap-5">
-      <!-- Filter Selector Pills -->
       <div class="bg-[var(--warm-white)] p-3 rounded-2xl border border-[var(--parchment)] shadow-sm">
         <p class="text-xs font-bold text-[var(--brown-mid)] uppercase tracking-wider mb-2 font-heading px-1">PHOTO
           FILTERS</p>
@@ -314,6 +288,11 @@
               class="px-2.5 py-1 rounded-full bg-[var(--sage-bg)] text-[var(--sage)] text-xs font-semibold font-heading">
               0/4 PHOTOS
             </span>
+            <button id="btn-download" onclick="downloadResult()" disabled
+              class="px-3 py-1.5 rounded-full bg-[var(--mauve)] hover:bg-[var(--mauve-light)] disabled:opacity-40 disabled:cursor-not-allowed text-[var(--brown)] text-xs font-bold font-heading transition flex items-center gap-1.5">
+              <i class="fa-solid fa-download"></i>
+              DOWNLOAD
+            </button>
           </div>
         </div>
         <!-- Action Shutter Bar -->
@@ -358,9 +337,17 @@
           <div id="flash-effect" class="hidden absolute inset-0 z-40 bg-white opacity-20"></div>
         </div>
 
-        <div id="notif-download" class="notif-download">
-          <p style="align-items: center; text-align: center;">Right click or hold this photo preview to download the
-            photobooth result</p>
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+
+          <div id="notif-download" class="notif-download">
+            <p style="align-items: center; text-align: center;">Tap the DOWNLOAD button above to save the photobooth
+              result, or right click / hold this preview as a backup option</p>
+          </div>
+          <button onclick="resetWholeBooth()" style="font-family: 'DM Sans', sans-serif;"
+            class="px-3 py-1.5 text-xs font-medium rounded-full bg-[var(--parchment)] text-[var(--brown)] hover:bg-[var(--mauve-light)] transition flex items-center gap-1.5">
+            <i class="fa-solid fa-rotate-left"></i>
+            <span class="hidden sm:inline">RETAKE</span>
+          </button>
         </div>
       </div>
     </section>
@@ -471,7 +458,6 @@
         if (audioCtx.state === 'suspended') {
           audioCtx.resume();
         }
-        // Synthetic camera shutter sound using noise buffer + envelope
         const bufferSize = audioCtx.sampleRate * 0.15;
         const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
         const output = buffer.getChannelData(0);
@@ -556,8 +542,6 @@
       if (activeFilterLabel) {
         activeFilterLabel.innerText = `Filter: ${name}`;
       }
-
-      // Update UI active buttons
       document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.classList.remove('active-filter', 'bg-[var(--sage-bg)]', 'border-[var(--sage-light)]');
         btn.classList.add('bg-[var(--warm-white)]', 'border-[var(--parchment)]');
@@ -815,9 +799,27 @@
             applyCssFilterToCanvasCtx(ctx, currentFilter);
             const drawX = isMirrored ? 0 : x;
             const drawY = isMirrored ? 0 : y;
-            ctx.drawImage(video, drawX, drawY, w, h);
-            ctx.restore();
 
+            // Cover-fit crop (same logic as drawImageIntoSlotBox) so the live
+            // preview matches the aspect ratio the captured photo will have.
+            const vw = video.videoWidth || w;
+            const vh = video.videoHeight || h;
+            const aspectVideo = vw / vh;
+            const aspectBox = w / h;
+            let sx, sy, sWidth, sHeight;
+            if (aspectVideo > aspectBox) {
+              sHeight = vh;
+              sWidth = vh * aspectBox;
+              sx = (vw - sWidth) / 2;
+              sy = 0;
+            } else {
+              sWidth = vw;
+              sHeight = vw / aspectBox;
+              sx = 0;
+              sy = (vh - sHeight) / 2;
+            }
+            ctx.drawImage(video, sx, sy, sWidth, sHeight, drawX, drawY, w, h);  // ← crops to matching aspect, then fits
+            ctx.restore();
             ctx.save();
             ctx.strokeStyle = 'rgba(122,92,72,0.18)';
             ctx.lineWidth = 2;
@@ -888,7 +890,32 @@
       ctx.drawImage(img, sx, sy, sWidth, sHeight, x, y, w, h);
     }
 
-    /* Reset Photobooth state */
+    /* Download the final composed result (photos + template frame) */
+    function downloadResult() {
+      const filledCount = photos.filter(p => p !== null).length;
+      if (filledCount === 0) {
+        showToast('Take at least 1 photo first');
+        return;
+      }
+
+      mainCanvas.toBlob((blob) => {
+        if (!blob) {
+          showToast('Failed to prepare the download');
+          return;
+        }
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+        link.href = url;
+        link.download = `musim-mekarnya-rasa-nidjaebooth.png`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        showToast('Photo downloaded!');
+      }, 'image/png', 1);
+    }
+
     function resetWholeBooth() {
       for (let i = 0; i < 4; i++) {
         photos[i] = null;
@@ -905,7 +932,6 @@
       document.getElementById('btn-take-single').disabled = disabled;
     }
 
-    /* UI Helpers */
     function showToast(message) {
       const toast = document.getElementById('toast');
       const toastMsg = document.getElementById('toast-msg');
@@ -919,7 +945,6 @@
       }, 2500);
     }
 
-    /* Initialize Page & Camera on Window Load */
     window.addEventListener('load', () => {
       initCamera();
       renderFinalCanvas();
