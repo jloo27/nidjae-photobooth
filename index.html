@@ -228,48 +228,61 @@
         padding: 5px;
         font-size: 8px;
       }
+
+      /* Shrink the photostrip preview on very small screens */
+      #photobooth-canvas {
+        max-height: 480px !important;
+      }
+
+      #photobooth-preview-container {
+        min-height: 260px !important;
+      }
     }
   </style>
 </head>
 
 <body
   class="min-h-screen flex flex-col justify-between antialiased selection:bg-[var(--mauve-light)] selection:text-[var(--brown)]">
+
+  <!-- Top Header -->
   <header
-    class="border-b border-[var(--parchment)] bg-[var(--warm-white)]/90 backdrop-blur-md static top-0 z-40 flex justify-center items-center py-2 px-2">
+    class="border-b border-[var(--parchment)] bg-[var(--warm-white)]/90 backdrop-blur-md sticky top-0 z-40 flex justify-center items-center py-2 px-2">
     <a id="logo" href="x.com/731chapters"><img src="logo.png" alt="Logo" class="h-10 w-auto" /></a>
   </header>
+
   <main class="max-w-6xl mx-auto px-4 py-6 w-full flex-1 grid grid-cols-1 gap-8 items-start">
     <section class="col-span-1 flex flex-col gap-5">
-      <div class="bg-[var(--warm-white)] p-3 rounded-2xl border border-[var(--parchment)] shadow-sm">
+      <!-- Filter Selector Pills -->
+      <div class="bg-[var(--warm-white)] p-3 border border-[var(--parchment)] shadow-sm">
         <p class="text-xs font-bold text-[var(--brown-mid)] uppercase tracking-wider mb-2 font-heading px-1">PHOTO
           FILTERS</p>
         <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
           <button onclick="setFilter('normal', 'Normal')"
-            class="filter-btn active-filter px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap bg-[var(--sage-bg)] text-[var(--brown)] border border-[var(--sage-light)] transition">
+            class="filter-btn active-filter px-3 py-1.5 rounded-[10px] text-xs font-semibold whitespace-nowrap bg-[var(--sage-bg)] text-[var(--brown)] border border-[var(--sage-light)] transition">
             Normal
           </button>
           <button onclick="setFilter('vintage', 'Vintage')"
-            class="filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap bg-[var(--warm-white)] text-[var(--brown)] border border-[var(--parchment)] hover:bg-[var(--isabeline)] transition">
+            class="filter-btn px-3 py-1.5 rounded-[10px] text-xs font-semibold whitespace-nowrap bg-[var(--warm-white)] text-[var(--brown)] border border-[var(--parchment)] hover:bg-[var(--isabeline)] transition">
             Classic Vintage
           </button>
           <button onclick="setFilter('warm', 'Warm Soft')"
-            class="filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap bg-[var(--warm-white)] text-[var(--brown)] border border-[var(--parchment)] hover:bg-[var(--isabeline)] transition">
+            class="filter-btn px-3 py-1.5 rounded-[10px] text-xs font-semibold whitespace-nowrap bg-[var(--warm-white)] text-[var(--brown)] border border-[var(--parchment)] hover:bg-[var(--isabeline)] transition">
             Warm Soft
           </button>
           <button onclick="setFilter('monochrome', 'Hitam Putih')"
-            class="filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap bg-[var(--warm-white)] text-[var(--brown)] border border-[var(--parchment)] hover:bg-[var(--isabeline)] transition">
+            class="filter-btn px-3 py-1.5 rounded-[10px] text-xs font-semibold whitespace-nowrap bg-[var(--warm-white)] text-[var(--brown)] border border-[var(--parchment)] hover:bg-[var(--isabeline)] transition">
             Monochrome
           </button>
           <button onclick="setFilter('sage', 'Sage Olive')"
-            class="filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap bg-[var(--warm-white)] text-[var(--brown)] border border-[var(--parchment)] hover:bg-[var(--isabeline)] transition">
+            class="filter-btn px-3 py-1.5 rounded-[10px] text-xs font-semibold whitespace-nowrap bg-[var(--warm-white)] text-[var(--brown)] border border-[var(--parchment)] hover:bg-[var(--isabeline)] transition">
             Sage Tone
           </button>
           <button onclick="setFilter('rosy', 'Rosy Pink')"
-            class="filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap bg-[var(--warm-white)] text-[var(--brown)] border border-[var(--parchment)] hover:bg-[var(--isabeline)] transition">
+            class="filter-btn px-3 py-1.5 rounded-[10px] text-xs font-semibold whitespace-nowrap bg-[var(--warm-white)] text-[var(--brown)] border border-[var(--parchment)] hover:bg-[var(--isabeline)] transition">
             Rosy Mauve
           </button>
           <button onclick="setFilter('dramatic', 'Dramatic')"
-            class="filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap bg-[var(--warm-white)] text-[var(--brown)] border border-[var(--parchment)] hover:bg-[var(--isabeline)] transition">
+            class="filter-btn px-3 py-1.5 rounded-[10px] text-xs font-semibold whitespace-nowrap bg-[var(--warm-white)] text-[var(--brown)] border border-[var(--parchment)] hover:bg-[var(--isabeline)] transition">
             Dramatic
           </button>
         </div>
@@ -277,19 +290,18 @@
     </section>
     <!-- Photobooth preview and live slot result -->
     <section class="col-span-1 flex flex-col gap-5">
-      <div
-        class="bg-[var(--warm-white)] p-5 rounded-3xl border border-[var(--parchment)] shadow-sm flex flex-col gap-4">
+      <div class="bg-[var(--warm-white)] p-5 border border-[var(--parchment)] shadow-sm flex flex-col gap-4">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div id="title-preview">
             <h2 class="text-lg font-bold text-[var(--brown)] font-heading">RESULT PREVIEW</h2>
           </div>
           <div class="flex items-center gap-3">
             <span id="status-badge"
-              class="px-2.5 py-1 rounded-full bg-[var(--sage-bg)] text-[var(--sage)] text-xs font-semibold font-heading">
+              class="px-2.5 py-1 bg-[var(--sage-bg)] text-[var(--sage)] text-xs font-semibold font-heading">
               0/4 PHOTOS
             </span>
             <button id="btn-download" onclick="downloadResult()" disabled
-              class="px-3 py-1.5 rounded-full bg-[var(--mauve)] hover:bg-[var(--mauve-light)] disabled:opacity-40 disabled:cursor-not-allowed text-[var(--brown)] text-xs font-bold font-heading transition flex items-center gap-1.5">
+              class="px-3 py-1.5 rounded-[10px] bg-[var(--mauve)] hover:bg-[var(--mauve-light)] disabled:opacity-40 disabled:cursor-not-allowed text-[var(--brown)] text-xs font-bold font-heading transition flex items-center gap-1.5">
               <i class="fa-solid fa-download"></i>
               DOWNLOAD
             </button>
@@ -305,7 +317,7 @@
               Timer:
             </label>
             <select id="timer-select"
-              class="bg-[var(--mauve-bg)] border border-[var(--mauve-light)] text-[var(--text)] text-xs font-bold rounded-lg px-2.5 py-1.5 focus:outline-none font-heading">
+              class="bg-[var(--mauve-bg)] border border-[var(--mauve-light)] rounded-[5px] text-[var(--text)] text-xs font-bold px-2.5 py-1.5 focus:outline-none font-heading">
               <option value="1">1 s</option>
               <option value="3">3 s</option>
               <option value="5">5 s</option>
@@ -313,12 +325,12 @@
           </div>
           <div id="shutter-btn" class="flex items-center gap-2 w-full sm:w-auto">
             <button id="btn-take-auto" onclick="startAutoSession()"
-              class="flex-1 sm:flex-initial px-6 py-3 bg-[var(--brown)] hover:bg-[var(--brown-mid)] text-[var(--warm-white)] rounded-xl font-bold text-sm transition shadow-md flex items-center justify-center gap-2 font-heading">
+              class="flex-1 sm:flex-initial px-6 py-3 bg-[var(--brown)] hover:bg-[var(--brown-mid)] text-[var(--warm-white)] rounded-[10px] font-bold text-sm transition shadow-md flex items-center justify-center gap-2 font-heading">
               <i class="fa-solid fa-camera text-base"></i>
               4 PHOTOS (AUTO)
             </button>
             <button id="btn-take-single" onclick="captureSinglePhoto()"
-              class="px-4 py-3 bg-[var(--mauve)] hover:bg-[var(--mauve-light)] text-[var(--brown)] rounded-xl font-bold text-sm transition shadow-sm flex items-center justify-center gap-1.5 font-heading"
+              class="px-4 py-3 bg-[var(--mauve)] hover:bg-[var(--mauve-light)] text-[var(--brown)] rounded-[10px] font-bold text-sm transition shadow-sm flex items-center justify-center gap-1.5 font-heading"
               title="SINGLE PHOTO">
               <i class="fa-solid fa-camera text-base"></i>
               SINGLE PHOTO
@@ -326,25 +338,25 @@
           </div>
         </div>
         <div id="photobooth-preview-container"
-          class="relative mt-2 bg-[var(--sage-bg)] p-3 rounded-2xl border border-[var(--parchment)] flex justify-center items-start min-h-[420px] overflow-auto">
-          <canvas id="photobooth-canvas" class="w-full h-auto rounded-3xl shadow-lg transition-all duration-300"
+          class="relative mt-2 bg-[var(--sage-bg)] p-3 border border-[var(--parchment)] flex justify-center items-start min-h-[420px] overflow-auto">
+          <canvas id="photobooth-canvas" class="w-full h-auto shadow-lg transition-all duration-300"
             style="max-height: 780px; display: block; width: auto; height: auto; background: #fff9f0; border: 3px solid rgba(122,92,72,0.25); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.4);"></canvas>
           <div id="countdown-overlay"
             class="hidden absolute inset-0 z-30 flex items-center justify-center bg-black/50 text-white">
             <span id="countdown-num"
-              class="text-[5rem] font-bold tracking-[0.04em] px-8 py-6 rounded-3xl bg-white/15 backdrop-blur-sm shadow-lg"></span>
+              class="text-[5rem] font-bold tracking-[0.04em] px-8 py-6 bg-white/15 backdrop-blur-sm shadow-lg"></span>
           </div>
           <div id="flash-effect" class="hidden absolute inset-0 z-40 bg-white opacity-20"></div>
         </div>
 
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div class="flex flex-col items-center sm:flex-row sm:items-center sm:justify-between gap-3">
 
           <div id="notif-download" class="notif-download">
             <p style="align-items: center; text-align: center;">Tap the DOWNLOAD button above to save the photobooth
               result, or right click / hold this preview as a backup option</p>
           </div>
           <button onclick="resetWholeBooth()" style="font-family: 'DM Sans', sans-serif;"
-            class="px-3 py-1.5 text-xs font-medium rounded-full bg-[var(--parchment)] text-[var(--brown)] hover:bg-[var(--mauve-light)] transition flex items-center gap-1.5">
+            class="px-3 py-1.5 text-xs font-medium rounded-[10px] bg-[var(--parchment)] text-[var(--brown)] hover:bg-[var(--mauve-light)] transition flex items-center gap-1.5">
             <i class="fa-solid fa-rotate-left"></i>
             <span class="hidden sm:inline">RETAKE</span>
           </button>
@@ -359,7 +371,7 @@
     <div class="sec-rule"></div>
   </div>
   <div id="toast"
-    class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-[var(--brown)] text-[var(--warm-white)] px-5 py-2.5 rounded-full shadow-lg text-xs font-semibold font-heading opacity-0 transition-all duration-300 pointer-events-none z-50 flex items-center gap-2">
+    class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-[var(--brown)] text-[var(--warm-white)] px-5 py-2.5 shadow-lg text-xs font-semibold font-heading opacity-0 transition-all duration-300 pointer-events-none z-50 flex items-center gap-2">
     <i class="fa-solid fa-circle-info text-[var(--mauve-light)]"></i>
     <span id="toast-msg">Notification</span>
   </div>
@@ -458,6 +470,7 @@
         if (audioCtx.state === 'suspended') {
           audioCtx.resume();
         }
+        // Synthetic camera shutter sound using noise buffer + envelope
         const bufferSize = audioCtx.sampleRate * 0.15;
         const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
         const output = buffer.getChannelData(0);
@@ -542,6 +555,8 @@
       if (activeFilterLabel) {
         activeFilterLabel.innerText = `Filter: ${name}`;
       }
+
+      // Update UI active buttons
       document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.classList.remove('active-filter', 'bg-[var(--sage-bg)]', 'border-[var(--sage-light)]');
         btn.classList.add('bg-[var(--warm-white)]', 'border-[var(--parchment)]');
@@ -818,7 +833,7 @@
               sx = 0;
               sy = (vh - sHeight) / 2;
             }
-            ctx.drawImage(video, sx, sy, sWidth, sHeight, drawX, drawY, w, h);  // ← crops to matching aspect, then fits
+            ctx.drawImage(video, sx, sy, sWidth, sHeight, drawX, drawY, w, h);
             ctx.restore();
             ctx.save();
             ctx.strokeStyle = 'rgba(122,92,72,0.18)';
