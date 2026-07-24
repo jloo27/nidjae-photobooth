@@ -167,14 +167,33 @@
 
     @media (max-width: 640px) {
 
-      #title-preview h2 {
-        font-family: 10px;
+      /* Make preview header inline at small screens */
+      #preview-area {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+      }
+
+      .title-preview h2 {
+        font-size: 14px;
+        margin: 0;
+        padding: 0;
+      }
+
+      #status-badge {
+        font-size: 10px;
+        padding: 4px 8px;
       }
 
       /* Shutter bar */
       #shutter-bar {
         gap: 6px;
+        display: flex;
         flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-between;
       }
 
       /* Timer area */
@@ -188,45 +207,84 @@
         font-size: 10px;
       }
 
-      /* AUTO button */
-      #btn-take-auto {
-        padding: 10px 12px;
-        min-width: 0;
-        flex: 1;
-      }
-
       /* SINGLE button */
       #btn-take-single {
-        padding: 10px;
+        padding: 1.5px 10px;
         min-width: 44px;
         flex-shrink: 0;
       }
 
+      #countdown-num {
+        font-size: 1rem;
+      }
 
-      #btn-take-single,
-      #btn-take-auto {
+      #btn-take-single {
         font-size: 10px;
       }
 
-      #btn-take-single i,
-      #btn-take-auto i {
+      #btn-take-single i {
         font-size: 10px;
       }
 
       #btn-take-single span {
         display: none;
       }
-    }
 
-    @media (max-width: 453px) {
+      /* Keep shutter buttons on one line and slightly smaller icons */
       #shutter-btn {
-        display: grid;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: nowrap;
+        margin-left: auto;
+        flex: 0 0 auto;
+        width: auto !important;
       }
 
-      #btn-take-single,
-      #btn-take-auto {
-        padding: 5px;
-        font-size: 8px;
+      #shutter-btn>button {
+        min-width: 0;
+        white-space: nowrap;
+      }
+
+      #shutter-btn i {
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 435px) {
+
+      /* Force single-line shutter bar on very small screens and shrink icons */
+      #shutter-bar {
+        gap: 6px;
+        padding-left: 6px;
+        padding-right: 6px;
+        justify-content: space-between;
+      }
+
+      #shutter-btn {
+        gap: 6px;
+        align-items: center;
+        display: flex;
+        flex-wrap: nowrap;
+        margin-left: auto;
+        flex: 0 0 auto;
+        width: auto !important;
+      }
+
+      #shutter-btn>button,
+      #shutter-btn button {
+        padding: 6px 8px;
+        font-size: 10px;
+      }
+
+      #shutter-btn i {
+        font-size: 12px;
+      }
+
+      #timer-select {
+        width: 30px;
+        padding: 0px 5px;
+        font-size: 10px;
       }
 
       /* Shrink the photostrip preview on very small screens */
@@ -291,8 +349,8 @@
     <!-- Photobooth preview and live slot result -->
     <section class="col-span-1 flex flex-col gap-5">
       <div class="bg-[var(--warm-white)] p-5 border border-[var(--parchment)] shadow-sm flex flex-col gap-4">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <div id="title-preview">
+        <div id="preview-area" class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div class="title-preview">
             <h2 class="text-lg font-bold text-[var(--brown)] font-heading">RESULT PREVIEW</h2>
           </div>
           <div class="flex items-center gap-3">
@@ -300,11 +358,6 @@
               class="px-2.5 py-1 bg-[var(--sage-bg)] text-[var(--sage)] text-xs font-semibold font-heading">
               0/4 PHOTOS
             </span>
-            <button id="btn-download" onclick="downloadResult()" disabled
-              class="px-3 py-1.5 rounded-[10px] bg-[var(--mauve)] hover:bg-[var(--mauve-light)] disabled:opacity-40 disabled:cursor-not-allowed text-[var(--brown)] text-xs font-bold font-heading transition flex items-center gap-1.5">
-              <i class="fa-solid fa-download"></i>
-              DOWNLOAD
-            </button>
           </div>
         </div>
         <!-- Action Shutter Bar -->
@@ -324,16 +377,21 @@
             </select>
           </div>
           <div id="shutter-btn" class="flex items-center gap-2 w-full sm:w-auto">
-            <button id="btn-take-auto" onclick="startAutoSession()"
-              class="flex-1 sm:flex-initial px-6 py-3 bg-[var(--brown)] hover:bg-[var(--brown-mid)] text-[var(--warm-white)] rounded-[10px] font-bold text-sm transition shadow-md flex items-center justify-center gap-2 font-heading">
-              <i class="fa-solid fa-camera text-base"></i>
-              4 PHOTOS (AUTO)
+            <button onclick="resetWholeBooth()" style="font-family: 'DM Sans', sans-serif;"
+              class="px-3 py-1.5 text-xs font-medium rounded-[10px] bg-[var(--parchment)] text-[var(--brown)] hover:bg-[var(--mauve-light)] transition flex items-center gap-1.5">
+              <i class="fa-solid fa-rotate-left"></i>
+              <span class="hidden sm:inline">RETAKE</span>
+            </button>
+            <button id="btn-download" onclick="downloadResult()" disabled
+              class="px-3 py-1.5 rounded-[10px] bg-[var(--mauve)] hover:bg-[var(--mauve-light)] disabled:opacity-40 disabled:cursor-not-allowed text-[var(--brown)] text-xs font-bold font-heading transition flex items-center gap-1.5">
+              <i class="fa-solid fa-download"></i>
+              <span class="hidden sm:inline">DOWNLOAD</span>
             </button>
             <button id="btn-take-single" onclick="captureSinglePhoto()"
-              class="px-4 py-3 bg-[var(--mauve)] hover:bg-[var(--mauve-light)] text-[var(--brown)] rounded-[10px] font-bold text-sm transition shadow-sm flex items-center justify-center gap-1.5 font-heading"
+              class="px-3 py-1.5 bg-[var(--mauve)] hover:bg-[var(--mauve-light)] text-[var(--brown)] rounded-[10px] font-bold text-sm transition shadow-sm flex items-center justify-center gap-1.5 font-heading"
               title="SINGLE PHOTO">
               <i class="fa-solid fa-camera text-base"></i>
-              SINGLE PHOTO
+              <span class="hidden sm:inline">CAPTURE</span>
             </button>
           </div>
         </div>
@@ -344,22 +402,16 @@
           <div id="countdown-overlay"
             class="hidden absolute inset-0 z-30 flex items-center justify-center bg-black/50 text-white">
             <span id="countdown-num"
-              class="text-[5rem] font-bold tracking-[0.04em] px-8 py-6 bg-white/15 backdrop-blur-sm shadow-lg"></span>
+              class="text-[2rem] font-bold tracking-[0.04em] px-8 py-6 bg-white/15 backdrop-blur-sm shadow-lg"></span>
           </div>
           <div id="flash-effect" class="hidden absolute inset-0 z-40 bg-white opacity-20"></div>
         </div>
 
         <div class="flex flex-col items-center sm:flex-row sm:items-center sm:justify-between gap-3">
-
           <div id="notif-download" class="notif-download">
             <p style="align-items: center; text-align: center;">Tap the DOWNLOAD button above to save the photobooth
               result, or right click / hold this preview as a backup option</p>
           </div>
-          <button onclick="resetWholeBooth()" style="font-family: 'DM Sans', sans-serif;"
-            class="px-3 py-1.5 text-xs font-medium rounded-[10px] bg-[var(--parchment)] text-[var(--brown)] hover:bg-[var(--mauve-light)] transition flex items-center gap-1.5">
-            <i class="fa-solid fa-rotate-left"></i>
-            <span class="hidden sm:inline">RETAKE</span>
-          </button>
         </div>
       </div>
     </section>
@@ -568,30 +620,6 @@
         target.classList.remove('bg-[var(--warm-white)]', 'border-[var(--parchment)]');
       }
     }
-
-    async function startAutoSession() {
-      if (isSessionRunning) return;
-      isSessionRunning = true;
-      disableActionButtons(true);
-
-      showToast('START 4 SNAPS');
-
-      for (let i = 0; i < 4; i++) {
-        activeSlotIndex = i;
-        updateSlotIndicator();
-        await runCountdown();
-        captureCurrentSlot();
-        // Brief pause between shots
-        if (i < 3) {
-          await new Promise(res => setTimeout(res, 1200));
-        }
-      }
-
-      isSessionRunning = false;
-      disableActionButtons(false);
-      showToast('4 PHOTOS IS TAKEN');
-    }
-
     async function captureSinglePhoto() {
       if (isSessionRunning) return;
       if (video.readyState < 2) {
@@ -622,7 +650,6 @@
 
       isSessionRunning = false;
       disableActionButtons(false);
-      showToast(`#${capturedSlot + 1} photos is snapped`);
     }
 
     function updateSlotIndicator() {
@@ -909,7 +936,6 @@
     function downloadResult() {
       const filledCount = photos.filter(p => p !== null).length;
       if (filledCount === 0) {
-        showToast('Take at least 1 photo first');
         return;
       }
 
@@ -927,7 +953,6 @@
         link.click();
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
-        showToast('Photo downloaded!');
       }, 'image/png', 1);
     }
 
@@ -943,8 +968,15 @@
       requestPreviewRender();
     }
     function disableActionButtons(disabled) {
-      document.getElementById('btn-take-auto').disabled = disabled;
-      document.getElementById('btn-take-single').disabled = disabled;
+      const autoBtn = document.getElementById('btn-take-auto');
+      const singleBtn = document.getElementById('btn-take-single');
+
+      if (autoBtn) {
+        autoBtn.disabled = disabled;
+      }
+      if (singleBtn) {
+        singleBtn.disabled = disabled;
+      }
     }
 
     function showToast(message) {
