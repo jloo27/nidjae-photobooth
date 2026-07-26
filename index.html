@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Snap the Memories - Musim Mekarnya Rasa Nidjae</title>
+  <title>Musim Mekarnya Rasa Booth</title>
   <link rel="icon" href="https://musim-mekarnya-rasa-fanzine.netlify.app/logo.png" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -100,7 +100,6 @@
       background: linear-gradient(to left, var(--text), transparent);
     }
 
-    /* Filter Presets */
     .filter-normal {
       filter: none;
     }
@@ -129,12 +128,10 @@
       filter: contrast(1.35) brightness(0.9) saturate(1.1);
     }
 
-    /* Video Mirror Effect */
     .mirror {
       transform: scaleX(-1);
     }
 
-    /* Custom Scrollbar */
     ::-webkit-scrollbar {
       width: 6px;
       height: 6px;
@@ -149,7 +146,6 @@
       border-radius: 999px;
     }
 
-    /* Camera Flash Overlay Animation */
     @keyframes flash-anim {
       0% {
         opacity: 0.95;
@@ -164,9 +160,16 @@
       animation: flash-anim 0.4s ease-out forwards;
     }
 
-    @media (max-width: 640px) {
+    @media (max-width: 1035px) {
+      #shutter-bar>div:last-child {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        gap: 10px;
+      }
+    }
 
-      /* Make preview header inline at small screens */
+    @media (max-width: 640px) {
       #preview-area {
         display: flex;
         flex-direction: row;
@@ -177,8 +180,8 @@
 
       .title-preview h2 {
         font-size: 14px;
-        margin: 0;
-        padding: 0;
+        margin: 0px;
+        padding: 0px;
       }
 
       #status-badge {
@@ -186,7 +189,6 @@
         padding: 4px 8px;
       }
 
-      /* Shutter bar */
       #shutter-bar {
         gap: 6px;
         display: flex;
@@ -195,7 +197,16 @@
         justify-content: space-between;
       }
 
-      /* Timer area */
+      #shutter-bar>div:first-child {
+        min-width: 90px;
+        flex: 1 1 90px;
+      }
+
+      #shutter-bar>div:last-child {
+        width: auto !important;
+        margin-left: auto;
+      }
+
       #shutter-bar label {
         font-size: 11px;
       }
@@ -206,7 +217,6 @@
         font-size: 10px;
       }
 
-      /* SINGLE button */
       #btn-take-single {
         padding: 1.5px 10px;
         min-width: 44px;
@@ -229,7 +239,6 @@
         display: none;
       }
 
-      /* Keep shutter buttons on one line and slightly smaller icons */
       #shutter-btn {
         display: flex;
         gap: 8px;
@@ -252,7 +261,6 @@
 
     @media (max-width: 435px) {
 
-      /* Force single-line shutter bar on very small screens and shrink icons */
       #shutter-bar {
         gap: 6px;
         padding-left: 6px;
@@ -286,7 +294,6 @@
         font-size: 10px;
       }
 
-      /* Shrink the photostrip preview on very small screens */
       #photobooth-canvas {
         max-height: 480px !important;
       }
@@ -295,57 +302,30 @@
         min-height: 260px !important;
       }
     }
+
+    @media (max-width: 460px) {
+      #shutter-bar .filter-btn {
+        font-size: 9px;
+        padding: 4px 7px;
+        border-radius: 8px;
+      }
+
+      #shutter-bar>div:first-child p {
+        font-size: 9px;
+        margin-bottom: 4px;
+      }
+    }
   </style>
 </head>
 
 <body
   class="min-h-screen flex flex-col justify-between antialiased selection:bg-[var(--mauve-light)] selection:text-[var(--brown)]">
-
-  <!-- Top Header -->
   <header
     class="border-b border-[var(--parchment)] bg-[var(--warm-white)]/90 backdrop-blur-md static top-0 z-40 flex justify-center items-center py-2 px-2">
     <a id="logo" href="x.com/731chapters"><img src="logo.png" alt="Logo" class="h-10 w-auto" /></a>
   </header>
 
   <main class="max-w-6xl mx-auto px-4 py-6 w-full flex-1 grid grid-cols-1 gap-8 items-start">
-    <section class="col-span-1 flex flex-col gap-5">
-      <!-- Filter Selector Pills -->
-      <div class="bg-[var(--warm-white)] p-3 border border-[var(--parchment)] shadow-sm">
-        <p class="text-xs font-bold text-[var(--brown-mid)] uppercase tracking-wider mb-2 font-heading px-1">PHOTO
-          FILTERS</p>
-        <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-          <button onclick="setFilter('normal', 'Normal')"
-            class="filter-btn active-filter px-3 py-1.5 rounded-[10px] text-xs font-semibold whitespace-nowrap bg-[var(--sage-bg)] text-[var(--brown)] border border-[var(--sage-light)] transition">
-            Normal
-          </button>
-          <button onclick="setFilter('vintage', 'Vintage')"
-            class="filter-btn px-3 py-1.5 rounded-[10px] text-xs font-semibold whitespace-nowrap bg-[var(--warm-white)] text-[var(--brown)] border border-[var(--parchment)] hover:bg-[var(--isabeline)] transition">
-            Classic Vintage
-          </button>
-          <button onclick="setFilter('warm', 'Warm Soft')"
-            class="filter-btn px-3 py-1.5 rounded-[10px] text-xs font-semibold whitespace-nowrap bg-[var(--warm-white)] text-[var(--brown)] border border-[var(--parchment)] hover:bg-[var(--isabeline)] transition">
-            Warm Soft
-          </button>
-          <button onclick="setFilter('monochrome', 'Hitam Putih')"
-            class="filter-btn px-3 py-1.5 rounded-[10px] text-xs font-semibold whitespace-nowrap bg-[var(--warm-white)] text-[var(--brown)] border border-[var(--parchment)] hover:bg-[var(--isabeline)] transition">
-            Monochrome
-          </button>
-          <button onclick="setFilter('sage', 'Sage Olive')"
-            class="filter-btn px-3 py-1.5 rounded-[10px] text-xs font-semibold whitespace-nowrap bg-[var(--warm-white)] text-[var(--brown)] border border-[var(--parchment)] hover:bg-[var(--isabeline)] transition">
-            Sage Tone
-          </button>
-          <button onclick="setFilter('rosy', 'Rosy Pink')"
-            class="filter-btn px-3 py-1.5 rounded-[10px] text-xs font-semibold whitespace-nowrap bg-[var(--warm-white)] text-[var(--brown)] border border-[var(--parchment)] hover:bg-[var(--isabeline)] transition">
-            Rosy Mauve
-          </button>
-          <button onclick="setFilter('dramatic', 'Dramatic')"
-            class="filter-btn px-3 py-1.5 rounded-[10px] text-xs font-semibold whitespace-nowrap bg-[var(--warm-white)] text-[var(--brown)] border border-[var(--parchment)] hover:bg-[var(--isabeline)] transition">
-            Dramatic
-          </button>
-        </div>
-      </div>
-    </section>
-    <!-- Photobooth preview and live slot result -->
     <section class="col-span-1 flex flex-col gap-5">
       <div class="bg-[var(--warm-white)] p-5 border border-[var(--parchment)] shadow-sm flex flex-col gap-4">
         <div id="preview-area" class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
@@ -359,39 +339,75 @@
             </span>
           </div>
         </div>
-        <!-- Action Shutter Bar -->
+
         <div id="shutter-bar" class="sticky top-[72px] z-30 flex flex-wrap items-center justify-between gap-3
-                bg-[var(--warm-white)]/95 backdrop-blur-md py-3 px-1
-                border-b border-[var(--parchment)]">
-          <div class="flex items-center gap-3">
-            <label class="text-xs font-semibold text-[var(--brown)] font-heading flex items-center gap-1.5">
-              <i class="fa-solid fa-stopwatch text-[var(--text)]"></i>
-              Timer:
-            </label>
-            <select id="timer-select"
-              class="bg-[var(--mauve-bg)] border border-[var(--mauve-light)] rounded-[5px] text-[var(--text)] text-xs font-bold px-2.5 py-1.5 focus:outline-none font-heading">
-              <option value="1">1 s</option>
-              <option value="3">3 s</option>
-              <option value="5">5 s</option>
-            </select>
+                  bg-[var(--warm-white)]/95 backdrop-blur-md py-3 px-1
+                  border-b border-[var(--parchment)]">
+          <div class="min-w-0">
+            <p class="text-xs font-bold text-[var(--brown-mid)] uppercase tracking-wider mb-2 font-heading px-1">PHOTO
+              FILTERS</p>
+            <div class="flex items-center gap-2 flex-nowrap overflow-x-auto pb-1 scrollbar-none min-w-0 w-full">
+              <button onclick="setFilter('normal', 'Normal')"
+                class="filter-btn active-filter px-3 py-1.5 rounded-[10px] text-xs font-semibold whitespace-nowrap bg-[var(--sage-bg)] text-[var(--brown)] border border-[var(--sage-light)] transition">
+                Normal
+              </button>
+              <button onclick="setFilter('vintage', 'Vintage')"
+                class="filter-btn px-3 py-1.5 rounded-[10px] text-xs font-semibold whitespace-nowrap bg-[var(--warm-white)] text-[var(--brown)] border border-[var(--parchment)] hover:bg-[var(--isabeline)] transition">
+                Classic Vintage
+              </button>
+              <button onclick="setFilter('warm', 'Warm Soft')"
+                class="filter-btn px-3 py-1.5 rounded-[10px] text-xs font-semibold whitespace-nowrap bg-[var(--warm-white)] text-[var(--brown)] border border-[var(--parchment)] hover:bg-[var(--isabeline)] transition">
+                Warm Soft
+              </button>
+              <button onclick="setFilter('monochrome', 'Hitam Putih')"
+                class="filter-btn px-3 py-1.5 rounded-[10px] text-xs font-semibold whitespace-nowrap bg-[var(--warm-white)] text-[var(--brown)] border border-[var(--parchment)] hover:bg-[var(--isabeline)] transition">
+                Monochrome
+              </button>
+              <button onclick="setFilter('sage', 'Sage Olive')"
+                class="filter-btn px-3 py-1.5 rounded-[10px] text-xs font-semibold whitespace-nowrap bg-[var(--warm-white)] text-[var(--brown)] border border-[var(--parchment)] hover:bg-[var(--isabeline)] transition">
+                Sage Tone
+              </button>
+              <button onclick="setFilter('rosy', 'Rosy Pink')"
+                class="filter-btn px-3 py-1.5 rounded-[10px] text-xs font-semibold whitespace-nowrap bg-[var(--warm-white)] text-[var(--brown)] border border-[var(--parchment)] hover:bg-[var(--isabeline)] transition">
+                Rosy Mauve
+              </button>
+              <button onclick="setFilter('dramatic', 'Dramatic')"
+                class="filter-btn px-3 py-1.5 rounded-[10px] text-xs font-semibold whitespace-nowrap bg-[var(--warm-white)] text-[var(--brown)] border border-[var(--parchment)] hover:bg-[var(--isabeline)] transition">
+                Dramatic
+              </button>
+            </div>
           </div>
-          <div id="shutter-btn" class="flex items-center gap-2 w-full sm:w-auto">
-            <button onclick="resetWholeBooth()" style="font-family: 'DM Sans', sans-serif;"
-              class="px-3 py-1.5 text-xs font-medium rounded-[10px] bg-[var(--parchment)] text-[var(--brown)] hover:bg-[var(--mauve-light)] transition flex items-center gap-1.5">
-              <i class="fa-solid fa-rotate-left"></i>
-              <span class="hidden sm:inline">RETAKE</span>
-            </button>
-            <button id="btn-download" onclick="downloadResult()" disabled
-              class="px-3 py-1.5 rounded-[10px] bg-[var(--mauve)] hover:bg-[var(--mauve-light)] disabled:opacity-40 disabled:cursor-not-allowed text-[var(--brown)] text-xs font-bold font-heading transition flex items-center gap-1.5">
-              <i class="fa-solid fa-download"></i>
-              <span class="hidden sm:inline">DOWNLOAD</span>
-            </button>
-            <button id="btn-take-single" onclick="captureSinglePhoto()"
-              class="px-3 py-1.5 bg-[var(--mauve)] hover:bg-[var(--mauve-light)] text-[var(--brown)] rounded-[10px] font-bold text-sm transition shadow-sm flex items-center justify-center gap-1.5 font-heading"
-              title="SINGLE PHOTO">
-              <i class="fa-solid fa-camera text-base"></i>
-              <span class="hidden sm:inline">CAPTURE</span>
-            </button>
+          <div class="flex flex-col items-end gap-3 ml-auto flex-shrink-0 w-full sm:w-auto">
+            <div id="shutter-btn" class="flex items-center gap-2 flex-shrink-0">
+              <button onclick="resetWholeBooth()" style="font-family: 'DM Sans', sans-serif;"
+                class="px-3 py-1.5 text-xs font-medium rounded-[10px] bg-[var(--parchment)] text-[var(--brown)] hover:bg-[var(--mauve-light)] transition flex items-center gap-1.5">
+                <i class="fa-solid fa-rotate-left"></i>
+                <span class="hidden sm:inline">RETAKE</span>
+              </button>
+              <button id="btn-download" onclick="downloadResult()" disabled
+                class="px-3 py-1.5 rounded-[10px] bg-[var(--mauve)] hover:bg-[var(--mauve-light)] disabled:opacity-40 disabled:cursor-not-allowed text-[var(--brown)] text-xs font-bold font-heading transition flex items-center gap-1.5">
+                <i class="fa-solid fa-download"></i>
+                <span class="hidden sm:inline">DOWNLOAD</span>
+              </button>
+              <button id="btn-take-single" onclick="captureSinglePhoto()"
+                class="px-3 py-1.5 bg-[var(--mauve)] hover:bg-[var(--mauve-light)] text-[var(--brown)] rounded-[10px] font-bold text-sm transition shadow-sm flex items-center justify-center gap-1.5 font-heading"
+                title="SINGLE PHOTO">
+                <i class="fa-solid fa-camera text-base"></i>
+                <span class="hidden sm:inline">CAPTURE</span>
+              </button>
+            </div>
+            <div class="flex items-center gap-3">
+              <label class="text-xs font-semibold text-[var(--brown)] font-heading flex items-center gap-1.5">
+                <i class="fa-solid fa-stopwatch text-[var(--text)]"></i>
+                Timer:
+              </label>
+              <select id="timer-select"
+                class="bg-[var(--mauve-bg)] border border-[var(--mauve-light)] rounded-[5px] text-[var(--text)] text-xs font-bold px-2.5 py-1.5 focus:outline-none font-heading">
+                <option value="1">1 s</option>
+                <option value="3">3 s</option>
+                <option value="5">5 s</option>
+              </select>
+            </div>
           </div>
         </div>
         <div id="photobooth-preview-container"
@@ -429,7 +445,7 @@
 
   <script>
     const photos = [null, null, null, null];
-    const photoImageCache = [null, null, null, null]; // cached decoded Image objects per slot, avoids re-decode races
+    const photoImageCache = [null, null, null, null];
     let activeSlotIndex = 0;
     let currentFilter = 'normal';
     let currentFacingMode = 'user';
@@ -483,7 +499,7 @@
       templateFrameLoaded = true;
       requestPreviewRender();
     };
-    templateFrameImage.src = 'template-photoframe.png';
+    templateFrameImage.src = 'NIDJAE - FRAME.png';
 
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
@@ -514,7 +530,6 @@
         if (audioCtx.state === 'suspended') {
           audioCtx.resume();
         }
-        // Synthetic camera shutter sound using noise buffer + envelope
         const bufferSize = audioCtx.sampleRate * 0.15;
         const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
         const output = buffer.getChannelData(0);
@@ -600,7 +615,6 @@
         activeFilterLabel.innerText = `Filter: ${name}`;
       }
 
-      // Update UI active buttons
       document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.classList.remove('active-filter', 'bg-[var(--sage-bg)]', 'border-[var(--sage-light)]');
         btn.classList.add('bg-[var(--warm-white)]', 'border-[var(--parchment)]');
@@ -672,7 +686,7 @@
           } else {
             clearInterval(interval);
             countdownOverlay.classList.add('hidden');
-            playBeepSound(900, 0.2); // final high beep
+            playBeepSound(900, 0.2);
             resolve();
           }
         }, 1000);
@@ -680,9 +694,8 @@
     }
 
     function captureCurrentSlot() {
-      // Flash Animation
       flashEffect.classList.remove('flash-active');
-      void flashEffect.offsetWidth; // trigger reflow
+      void flashEffect.offsetWidth;
       flashEffect.classList.add('flash-active');
       playShutterSound();
 
@@ -771,12 +784,6 @@
     async function renderFinalCanvasInternal() {
       const frameColorKey = 'warm-white';
       const frameBgColor = '#FDFAF4';
-      const titleText = 'SNAP STUDIO';
-      const dateText = new Date().toLocaleDateString('id-ID', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric'
-      }).toUpperCase();
 
       const filledCount = photos.filter(p => p !== null).length;
       statusBadge.innerText = `${filledCount}/4 PHOTOS`;
@@ -834,8 +841,6 @@
             const drawX = isMirrored ? 0 : x;
             const drawY = isMirrored ? 0 : y;
 
-            // Cover-fit crop (same logic as drawImageIntoSlotBox) so the live
-            // preview matches the aspect ratio the captured photo will have.
             const vw = video.videoWidth || w;
             const vh = video.videoHeight || h;
             const aspectVideo = vw / vh;
@@ -923,8 +928,6 @@
 
       ctx.drawImage(img, sx, sy, sWidth, sHeight, x, y, w, h);
     }
-
-    /* Download the final composed result (photos + template frame) */
     function downloadResult() {
       const filledCount = photos.filter(p => p !== null).length;
       if (filledCount === 0) {
