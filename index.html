@@ -44,6 +44,37 @@
       font-family: 'EB Garamond', serif;
       background: url('https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExejgxanU3M2Z4NHU4a2ZjeWJoMzRzODFkb2FzanhiZTFlaGhkY3Q3MSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/xThtawJ5higNRr1pq8/giphy.gif') center/cover no-repeat fixed,
         linear-gradient(180deg, var(--warm-white) 0%, var(--isabeline) 38%, var(--isabeline) 75%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body ::selection {
+      background-color: var(--mauve-light);
+      color: var(--brown);
+    }
+
+    body ::-moz-selection {
+      background-color: var(--mauve-light);
+      color: var(--brown);
+    }
+
+    .page-header {
+
+      border-bottom: 1px solid var(--parchment);
+      background-color: rgba(var(--warm-white-rgb), 0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      position: static;
+      top: 0;
+      z-index: 40;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0.5rem;
     }
 
     h1,
@@ -57,6 +88,257 @@
     select,
     .font-heading {
       font-family: 'DM Sans', sans-serif;
+    }
+
+    .photobooth-page {
+      max-width: 72rem;
+      width: 100%;
+      margin: 0 auto;
+      padding: 1.5rem 1rem;
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .photobooth-page section {
+      grid-column: span 1 / span 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .card {
+      background-color: var(--warm-white);
+      padding: 1.25rem;
+      border: 1px solid var(--parchment);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .title-preview h2 {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--brown);
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+
+    }
+
+    #status-badge {
+      padding: 0.25rem 0.625rem;
+      background-color: var(--sage-bg);
+      color: var(--sage);
+      font-size: 0.75rem;
+      font-weight: 600;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .shutter-bar {
+      position: sticky;
+      top: 72px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      background: (var(--warm-white), 0.97);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--parchment);
+      z-index: 10;
+    }
+
+    .timer-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .timer-group label {
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--brown);
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .timer-group label i {
+      color: var(--text);
+    }
+
+    .timer-select {
+      background-color: var(--mauve-bg);
+      border: 1px solid var(--mauve-light);
+      border-radius: 5px;
+      color: var(--text);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.375rem 0.625rem;
+      font-family: 'DM Sans', sans-serif;
+      outline: none;
+    }
+
+    #shutter-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      flex-shrink: 0;
+    }
+
+    .retake-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+      min-width: 0;
+      padding: 0.375rem 0.75rem;
+      border-radius: 10px;
+      background-color: var(--parchment);
+      color: var(--brown);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .retake-btn:hover {
+      background-color: var(--mauve-light);
+    }
+
+    .action-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 6px 12px;
+      min-width: 0;
+      border: none;
+      border-radius: 10px;
+      color: var(--brown);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color .2s ease, opacity .2s ease;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+    }
+
+    .action-btn:disabled {
+      opacity: .45;
+      cursor: not-allowed;
+    }
+
+    .retake-btn {
+      background: var(--parchment);
+    }
+
+    .retake-btn:hover {
+      background: #e2d2c4;
+    }
+
+    .download-btn {
+      background: #e7d5d5;
+    }
+
+    .download-btn:hover:not(:disabled) {
+      background: #dcc5c5;
+    }
+
+    .capture-btn {
+      background: var(--mauve);
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: 700;
+      transform: scale(1.05);
+    }
+
+    .capture-btn i {
+      font-size: 18px;
+    }
+
+    .capture-btn:hover {
+      background: var(--mauve-light);
+    }
+
+    .photobooth-preview-container {
+      position: relative;
+      margin-top: 0.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 420px;
+      overflow: auto;
+      padding: 0.75rem;
+      background-color: var(--sage-bg);
+      border: 1px solid var(--parchment);
+    }
+
+    #photobooth-canvas {
+      display: block;
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 780px;
+      background: #fff9f0;
+      border: 3px solid rgba(122, 92, 72, 0.25);
+
+      box-shadow:
+        0 10px 15px rgba(0, 0, 0, 0.1),
+        /* shadow-lg */
+        inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .countdown-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 30;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
+    }
+
+    .countdown-overlay.hidden {
+      display: none;
+    }
+
+    .countdown-num {
+      padding: 1.5rem 2rem;
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .flash-effect {
+      position: absolute;
+      inset: 0;
+      z-index: 40;
+
+      background: #fff;
+      opacity: 0.2;
+    }
+
+    .flash-effect.hidden {
+      display: none;
     }
 
     .font-serif-custom {
@@ -100,36 +382,55 @@
       background: linear-gradient(to left, var(--text), transparent);
     }
 
-    .filter-normal {
-      filter: none;
+    #toast {
+      position: fixed;
+      bottom: 1.5rem;
+      /* bottom-6 */
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.625rem 1.25rem;
+      background: var(--brown);
+      color: var(--warm-white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
     }
 
-    .filter-vintage {
-      filter: sepia(0.35) contrast(1.1) brightness(0.95) saturate(1.2);
+    #toast i {
+      color: var(--mauve-light);
     }
 
-    .filter-warm {
-      filter: sepia(0.2) saturate(1.35) hue-rotate(-10deg) brightness(1.05);
+    #toast.show {
+      opacity: 1;
     }
 
-    .filter-monochrome {
-      filter: grayscale(1) contrast(1.25) brightness(1.05);
+    #webcam-elements {
+      position: absolute;
+      left: -9999px;
+      top: -9999px;
+
+      width: 1px;
+      height: 1px;
+
+      overflow: hidden;
     }
 
-    .filter-sage {
-      filter: hue-rotate(40deg) saturate(0.85) contrast(1.1) brightness(0.98);
+    #webcam {
+      width: 1px;
+      height: 1px;
+      opacity: 0;
     }
 
-    .filter-rosy {
-      filter: hue-rotate(-25deg) saturate(1.3) contrast(1.08) brightness(1.02);
-    }
-
-    .filter-dramatic {
-      filter: contrast(1.35) brightness(0.9) saturate(1.1);
-    }
-
-    .mirror {
-      transform: scaleX(-1);
+    .hidden {
+      display: none;
     }
 
     ::-webkit-scrollbar {
@@ -160,16 +461,8 @@
       animation: flash-anim 0.4s ease-out forwards;
     }
 
-    @media (max-width: 1035px) {
-      #shutter-bar>div:last-child {
-        flex-direction: row;
-        flex-wrap: nowrap;
-        align-items: center;
-        gap: 10px;
-      }
-    }
-
     @media (max-width: 640px) {
+
       #preview-area {
         display: flex;
         flex-direction: row;
@@ -179,317 +472,294 @@
       }
 
       .title-preview h2 {
+        margin: 0;
+        padding: 0;
         font-size: 14px;
-        margin: 0px;
-        padding: 0px;
       }
 
       #status-badge {
-        font-size: 10px;
         padding: 4px 8px;
+        font-size: 10px;
       }
 
-      #shutter-bar {
-        gap: 6px;
+      .shutter-bar {
         display: flex;
-        flex-wrap: nowrap;
         align-items: center;
         justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 6px;
       }
 
-      #shutter-bar>div:first-child {
-        min-width: 90px;
-        flex: 1 1 90px;
+      .timer-group {
+        flex: 1 1 auto;
+        min-width: 0;
       }
 
-      #shutter-bar>div:last-child {
-        width: auto !important;
-        margin-left: auto;
-      }
-
-      #shutter-bar label {
+      .timer-label {
         font-size: 11px;
       }
 
-      #shutter-bar select {
+      .timer-select {
         width: 55px;
         padding: 4px 6px;
         font-size: 10px;
       }
 
-      #btn-take-single {
-        padding: 1.5px 10px;
-        min-width: 44px;
-        flex-shrink: 0;
+      .timer-select:focus {
+        outline: none;
+      }
+
+      #shutter-btn {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        flex: 1 1 auto;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-left: auto;
+        min-width: 0;
+      }
+
+      .action-btn {
+        padding: 6px 10px;
+        font-size: 10px;
+        white-space: nowrap;
+      }
+
+      .action-btn i {
+        font-size: 14px;
       }
 
       #countdown-num {
         font-size: 1rem;
       }
+    }
 
-      #btn-take-single {
-        font-size: 10px;
+    @media (max-width: 465px) {
+
+      .shutter-bar {
+        padding: 4px 7px;
+        font-size: 9px;
+        border-radius: 8px;
       }
 
-      #btn-take-single i {
-        font-size: 10px;
-      }
-
-      #btn-take-single span {
+      .btn-text {
         display: none;
       }
 
-      #shutter-btn {
-        display: flex;
-        gap: 8px;
-        align-items: center;
-        flex-wrap: nowrap;
-        margin-left: auto;
-        flex: 0 0 auto;
-        width: auto !important;
+      .action-btn {
+        padding: 8px;
+        min-width: 40px;
+        justify-content: center;
       }
 
-      #shutter-btn>button {
-        min-width: 0;
-        white-space: nowrap;
-      }
-
-      #shutter-btn i {
+      .action-btn i {
         font-size: 14px;
+      }
+
+      .capture-btn {
+        padding: 10px 12px;
+        transform: none;
+      }
+
+      .capture-btn i {
+        font-size: 16px;
       }
     }
 
     @media (max-width: 435px) {
 
-      #shutter-bar {
+      .shutter-bar {
         gap: 6px;
-        padding-left: 6px;
-        padding-right: 6px;
-        justify-content: space-between;
+        padding-inline: 6px;
       }
 
       #shutter-btn {
         gap: 6px;
-        align-items: center;
-        display: flex;
-        flex-wrap: nowrap;
-        margin-left: auto;
-        flex: 0 0 auto;
-        width: auto !important;
       }
 
-      #shutter-btn>button,
-      #shutter-btn button {
+      .action-btn {
         padding: 6px 8px;
         font-size: 10px;
       }
 
-      #shutter-btn i {
+      .action-btn i {
         font-size: 12px;
       }
 
-      #timer-select {
-        width: 30px;
-        padding: 0px 5px;
-        font-size: 10px;
-      }
-
       #photobooth-canvas {
-        max-height: 480px !important;
+        max-height: 480px;
       }
 
-      #photobooth-preview-container {
-        min-height: 260px !important;
-      }
-    }
-
-    @media (max-width: 460px) {
-      #shutter-bar .filter-btn {
-        font-size: 9px;
-        padding: 4px 7px;
-        border-radius: 8px;
-      }
-
-      #shutter-bar>div:first-child p {
-        font-size: 9px;
-        margin-bottom: 4px;
+      .photobooth-preview-container {
+        min-height: 260px;
       }
     }
 
     @media (max-width: 395px) {
-      #shutter-bar {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 10px;
-        padding-left: 8px;
-        padding-right: 8px;
-      }
 
-      /* Filters area stays first and scrollable */
-      #shutter-bar>div:first-child {
-        order: 1;
-        width: 100%;
-      }
-
-      /* Controls stack beneath filters */
-      #shutter-bar>div:last-child {
-        order: 2;
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
+      .shutter-bar {
         justify-content: space-between;
-        gap: 8px;
-        padding: 0 4px;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding-inline: 8px;
       }
 
-      /* Make shutter buttons compact and hide label text */
-      #shutter-btn {
-        margin-left: 0;
-        width: auto !important;
-        flex: 0 0 auto;
-        gap: 8px;
-        justify-content: flex-end;
-      }
-
-      #shutter-btn>button span {
+      .timer-text {
         display: none;
       }
 
-      #shutter-btn>button,
-      #shutter-btn button {
-        font-size: 10px;
-        padding: 6px 8px;
+      .timer-label {
+        gap: 0;
       }
 
-      #shutter-btn i {
+      .timer-group {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      #shutter-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-left: 0;
+        padding: 0 4px;
+      }
+
+      .action-btn {
+        padding: 6px 8px;
+        font-size: 10px;
+      }
+
+      .action-btn i {
         font-size: 12px;
       }
 
-      .filter-btn {
-        font-size: 10px;
-        padding: 6px 8px;
+      .btn-text {
+        display: none;
       }
 
-      #timer-select {
+      .timer-select {
         width: 56px;
         padding: 4px 6px;
         font-size: 12px;
       }
 
       #photobooth-canvas {
-        max-height: 420px !important;
+        max-height: 420px;
       }
 
-      #photobooth-preview-container {
-        min-height: 240px !important;
+      .photobooth-preview-container {
+        min-height: 240px;
+      }
+
+      @media (max-width: 390px) {
+
+        .shutter-bar {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-wrap: nowrap;
+          /* Jangan turun ke bawah */
+          gap: 4px;
+        }
+
+        .timer-group {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          flex: 0 0 auto;
+        }
+
+        .timer-select {
+          width: 48px;
+          padding: 3px 5px;
+          font-size: 10px;
+        }
+
+        #shutter-btn {
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          flex-wrap: nowrap;
+          /* Tombol tetap sejajar */
+          gap: 4px;
+          flex: 1;
+          min-width: 0;
+        }
+
+        .action-btn {
+          padding: 6px;
+          min-width: 34px;
+        }
+
+        .action-btn i {
+          font-size: 12px;
+        }
+
+        .btn-text {
+          display: none;
+        }
       }
     }
   </style>
 </head>
 
-<body
-  class="min-h-screen flex flex-col justify-between antialiased selection:bg-[var(--mauve-light)] selection:text-[var(--brown)]">
-  <header
-    class="border-b border-[var(--parchment)] bg-[var(--warm-white)]/90 backdrop-blur-md static top-0 z-40 flex justify-center items-center py-2 px-2">
+<body>
+  <header class="page-header">
     <a id="logo" href="x.com/731chapters"><img src="logo.png" alt="Logo" class="h-10 w-auto" /></a>
   </header>
-
-  <main class="max-w-6xl mx-auto px-4 py-6 w-full flex-1 grid grid-cols-1 gap-8 items-start">
-    <section class="col-span-1 flex flex-col gap-5">
-      <div class="bg-[var(--warm-white)] p-5 border border-[var(--parchment)] shadow-sm flex flex-col gap-4">
+  <main class="photobooth-page">
+    <section>
+      <div class="card">
         <div id="preview-area" class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div class="title-preview">
-            <h2 class="text-lg font-bold text-[var(--brown)] font-heading">RESULT PREVIEW</h2>
+            <h2>RESULT PREVIEW</h2>
           </div>
-          <div class="flex items-center gap-3">
-            <span id="status-badge"
-              class="px-2.5 py-1 bg-[var(--sage-bg)] text-[var(--sage)] text-xs font-semibold font-heading">
+          <div class="status">
+            <span id="status-badge">
               0/4 PHOTOS
             </span>
           </div>
         </div>
-
-        <div id="shutter-bar" class="sticky top-[72px] z-30 flex flex-wrap items-center justify-between gap-3
-                  bg-[var(--warm-white)]/95 backdrop-blur-md py-3 px-1
-                  border-b border-[var(--parchment)]">
-          <div class="min-w-0">
-            <p class="text-xs font-bold text-[var(--brown-mid)] uppercase tracking-wider mb-2 font-heading px-1">PHOTO
-              FILTERS</p>
-            <div class="flex items-center gap-2 flex-nowrap overflow-x-auto pb-1 scrollbar-none min-w-0 w-full">
-              <button onclick="setFilter('normal', 'Normal')"
-                class="filter-btn active-filter px-3 py-1.5 rounded-[10px] text-xs font-semibold whitespace-nowrap bg-[var(--sage-bg)] text-[var(--brown)] border border-[var(--sage-light)] transition">
-                Normal
-              </button>
-              <button onclick="setFilter('vintage', 'Vintage')"
-                class="filter-btn px-3 py-1.5 rounded-[10px] text-xs font-semibold whitespace-nowrap bg-[var(--warm-white)] text-[var(--brown)] border border-[var(--parchment)] hover:bg-[var(--isabeline)] transition">
-                Classic Vintage
-              </button>
-              <button onclick="setFilter('warm', 'Warm Soft')"
-                class="filter-btn px-3 py-1.5 rounded-[10px] text-xs font-semibold whitespace-nowrap bg-[var(--warm-white)] text-[var(--brown)] border border-[var(--parchment)] hover:bg-[var(--isabeline)] transition">
-                Warm Soft
-              </button>
-              <button onclick="setFilter('monochrome', 'Hitam Putih')"
-                class="filter-btn px-3 py-1.5 rounded-[10px] text-xs font-semibold whitespace-nowrap bg-[var(--warm-white)] text-[var(--brown)] border border-[var(--parchment)] hover:bg-[var(--isabeline)] transition">
-                Monochrome
-              </button>
-              <button onclick="setFilter('sage', 'Sage Olive')"
-                class="filter-btn px-3 py-1.5 rounded-[10px] text-xs font-semibold whitespace-nowrap bg-[var(--warm-white)] text-[var(--brown)] border border-[var(--parchment)] hover:bg-[var(--isabeline)] transition">
-                Sage Tone
-              </button>
-              <button onclick="setFilter('rosy', 'Rosy Pink')"
-                class="filter-btn px-3 py-1.5 rounded-[10px] text-xs font-semibold whitespace-nowrap bg-[var(--warm-white)] text-[var(--brown)] border border-[var(--parchment)] hover:bg-[var(--isabeline)] transition">
-                Rosy Mauve
-              </button>
-              <button onclick="setFilter('dramatic', 'Dramatic')"
-                class="filter-btn px-3 py-1.5 rounded-[10px] text-xs font-semibold whitespace-nowrap bg-[var(--warm-white)] text-[var(--brown)] border border-[var(--parchment)] hover:bg-[var(--isabeline)] transition">
-                Dramatic
-              </button>
-            </div>
+        <div class="shutter-bar">
+          <div class="timer-group">
+            <label class="timer-label">
+              <i class="fa-solid fa-stopwatch"></i>
+              <span class="timer-text">Timer:</span>
+            </label>
+            <select class="timer-select">
+              <option value="1">1 s</option>
+              <option value="3">3 s</option>
+              <option value="5">5 s</option>
+            </select>
           </div>
-          <div class="flex flex-col items-end gap-3 ml-auto flex-shrink-0 w-full sm:w-auto">
-            <div id="shutter-btn" class="flex items-center gap-2 flex-shrink-0">
-              <button onclick="resetWholeBooth()" style="font-family: 'DM Sans', sans-serif;"
-                class="px-3 py-1.5 text-xs font-medium rounded-[10px] bg-[var(--parchment)] text-[var(--brown)] hover:bg-[var(--mauve-light)] transition flex items-center gap-1.5">
-                <i class="fa-solid fa-rotate-left"></i>
-                <span class="hidden sm:inline">RETAKE</span>
-              </button>
-              <button id="btn-download" onclick="downloadResult()" disabled
-                class="px-3 py-1.5 rounded-[10px] bg-[var(--mauve)] hover:bg-[var(--mauve-light)] disabled:opacity-40 disabled:cursor-not-allowed text-[var(--brown)] text-xs font-bold font-heading transition flex items-center gap-1.5">
-                <i class="fa-solid fa-download"></i>
-                <span class="hidden sm:inline">DOWNLOAD</span>
-              </button>
-              <button id="btn-take-single" onclick="captureSinglePhoto()"
-                class="px-3 py-1.5 bg-[var(--mauve)] hover:bg-[var(--mauve-light)] text-[var(--brown)] rounded-[10px] font-bold text-sm transition shadow-sm flex items-center justify-center gap-1.5 font-heading"
-                title="SINGLE PHOTO">
-                <i class="fa-solid fa-camera text-base"></i>
-                <span class="hidden sm:inline">CAPTURE</span>
-              </button>
-            </div>
-            <div class="flex items-center gap-3">
-              <label class="text-xs font-semibold text-[var(--brown)] font-heading flex items-center gap-1.5">
-                <i class="fa-solid fa-stopwatch text-[var(--text)]"></i>
-                Timer:
-              </label>
-              <select id="timer-select"
-                class="bg-[var(--mauve-bg)] border border-[var(--mauve-light)] rounded-[5px] text-[var(--text)] text-xs font-bold px-2.5 py-1.5 focus:outline-none font-heading">
-                <option value="1">1 s</option>
-                <option value="3">3 s</option>
-                <option value="5">5 s</option>
-              </select>
-            </div>
+          <div id="shutter-btn">
+            <button id="retake-btn" class="action-btn retake-btn" onclick="resetWholeBooth()">
+              <i class="fa-solid fa-rotate-left"></i>
+              <span class="hidden sm:inline">RETAKE</span>
+            </button><button id="btn-download" class="action-btn download-btn" onclick="downloadResult()" disabled>
+              <i class="fa-solid fa-download"></i>
+              <span class="btn-text">DOWNLOAD</span>
+            </button>
+            <button id="btn-take-single" class="action-btn capture-btn" onclick="captureSinglePhoto()"
+              title="SINGLE PHOTO">
+              <i class="fa-solid fa-camera"></i>
+              <span class="btn-text">CAPTURE</span>
+            </button>
           </div>
         </div>
-        <div id="photobooth-preview-container"
-          class="relative mt-2 bg-[var(--sage-bg)] p-3 border border-[var(--parchment)] flex justify-center items-start min-h-[420px] overflow-auto">
-          <canvas id="photobooth-canvas" class="w-full h-auto shadow-lg transition-all duration-300"
-            style="max-height: 780px; display: block; width: auto; height: auto; background: #fff9f0; border: 3px solid rgba(122,92,72,0.25); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.4);"></canvas>
-          <div id="countdown-overlay"
-            class="hidden absolute inset-0 z-30 flex items-center justify-center bg-black/50 text-white">
-            <span id="countdown-num"
-              class="text-[2rem] font-bold tracking-[0.04em] px-8 py-6 bg-white/15 backdrop-blur-sm shadow-lg"></span>
+        <div id="photobooth-preview-container" class="photobooth-preview-container">
+          <canvas id="photobooth-canvas"></canvas>
+
+          <div id="countdown-overlay" class="countdown-overlay hidden">
+            <span id="countdown-num" class="countdown-num"></span>
           </div>
-          <div id="flash-effect" class="hidden absolute inset-0 z-40 bg-white opacity-20"></div>
+
+          <div id="flash-effect" class="flash-effect hidden"></div>
         </div>
       </div>
     </section>
@@ -500,24 +770,23 @@
     <a href="https://x.com/731chapters"><i>731chapters</i></a></p>
     <div class="sec-rule"></div>
   </div>
-  <div id="toast"
-    class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-[var(--brown)] text-[var(--warm-white)] px-5 py-2.5 shadow-lg text-xs font-semibold font-heading opacity-0 transition-all duration-300 pointer-events-none z-50 flex items-center gap-2">
-    <i class="fa-solid fa-circle-info text-[var(--mauve-light)]"></i>
+  <div id="toast">
+    <i class="fa-solid fa-circle-info"></i>
     <span id="toast-msg">Notification</span>
   </div>
 
-  <div id="webcam-elements"
-    style="position:absolute; width:1px; height:1px; overflow:hidden; left:-9999px; top:-9999px;">
-    <video id="webcam" autoplay playsinline muted style="width:1px; height:1px; opacity:0;"></video>
+  <div id="webcam-elements">
+    <video id="webcam" autoplay playsinline muted></video>
   </div>
+
   <div id="camera-fallback" class="hidden"></div>
+
   <canvas id="hidden-capture-canvas" class="hidden"></canvas>
 
   <script>
     const photos = [null, null, null, null];
     const photoImageCache = [null, null, null, null];
     let activeSlotIndex = 0;
-    let currentFilter = 'normal';
     let currentFacingMode = 'user';
     let isMirrored = true;
     let isSessionRunning = false;
@@ -529,7 +798,6 @@
     const flashEffect = document.getElementById('flash-effect');
     const mainCanvas = document.getElementById('photobooth-canvas');
     const hiddenCanvas = document.getElementById('hidden-capture-canvas');
-    const activeFilterLabel = document.getElementById('active-filter-label');
     const slotIndicator = document.getElementById('slot-indicator');
     const statusBadge = document.getElementById('status-badge');
     const btnDownload = document.getElementById('btn-download');
@@ -608,18 +876,10 @@
         }
         const whiteNoise = audioCtx.createBufferSource();
         whiteNoise.buffer = buffer;
-
-        const filter = audioCtx.createBiquadFilter();
-        filter.type = 'bandpass';
-        filter.frequency.setValueAtTime(1000, audioCtx.currentTime);
-        filter.Q.setValueAtTime(3, audioCtx.currentTime);
-
         const gain = audioCtx.createGain();
         gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
 
-        whiteNoise.connect(filter);
-        filter.connect(gain);
         gain.connect(audioCtx.destination);
 
         whiteNoise.start();
@@ -678,24 +938,6 @@
       }
     }
 
-    function setFilter(filterClass, name, btnEl) {
-      currentFilter = filterClass;
-      video.className = `w-full h-full object-cover filter-${filterClass} transition-all duration-300 ${isMirrored ? 'mirror' : ''}`;
-      if (activeFilterLabel) {
-        activeFilterLabel.innerText = `Filter: ${name}`;
-      }
-
-      document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.classList.remove('active-filter', 'bg-[var(--sage-bg)]', 'border-[var(--sage-light)]');
-        btn.classList.add('bg-[var(--warm-white)]', 'border-[var(--parchment)]');
-      });
-
-      const target = btnEl || (typeof event !== 'undefined' ? event.currentTarget : null);
-      if (target) {
-        target.classList.add('active-filter', 'bg-[var(--sage-bg)]', 'border-[var(--sage-light)]');
-        target.classList.remove('bg-[var(--warm-white)]', 'border-[var(--parchment)]');
-      }
-    }
     async function captureSinglePhoto() {
       if (isSessionRunning) return;
       if (video.readyState < 2) {
@@ -740,7 +982,7 @@
 
     function runCountdown() {
       return new Promise((resolve) => {
-        const timerSecs = parseInt(document.getElementById('timer-select').value) || 3;
+        const timerSecs = parseInt(document.getElementByClass('timer-select').value) || 3;
         let count = timerSecs;
 
         countdownOverlay.classList.remove('hidden');
@@ -783,8 +1025,6 @@
         ctx.scale(-1, 1);
       }
 
-      applyCssFilterToCanvasCtx(ctx, currentFilter);
-
       ctx.drawImage(video, 0, 0, vWidth, vHeight);
       ctx.restore();
 
@@ -807,31 +1047,6 @@
         return;
       }
       requestPreviewRender();
-    }
-
-    function applyCssFilterToCanvasCtx(ctx, filterType) {
-      switch (filterType) {
-        case 'vintage':
-          ctx.filter = 'sepia(0.35) contrast(1.1) brightness(0.95) saturate(1.2)';
-          break;
-        case 'warm':
-          ctx.filter = 'sepia(0.2) saturate(1.35) hue-rotate(-10deg) brightness(1.05)';
-          break;
-        case 'monochrome':
-          ctx.filter = 'grayscale(1) contrast(1.25) brightness(1.05)';
-          break;
-        case 'sage':
-          ctx.filter = 'hue-rotate(40deg) saturate(0.85) contrast(1.1) brightness(0.98)';
-          break;
-        case 'rosy':
-          ctx.filter = 'hue-rotate(-25deg) saturate(1.3) contrast(1.08) brightness(1.02)';
-          break;
-        case 'dramatic':
-          ctx.filter = 'hue-rotate(-25deg) saturate(1.1) contrast(1.35) brightness(0.9)';
-          break;
-        default:
-          ctx.filter = 'none';
-      }
     }
 
     async function renderFinalCanvas() {
@@ -907,7 +1122,6 @@
               ctx.translate(x + w, y);
               ctx.scale(-1, 1);
             }
-            applyCssFilterToCanvasCtx(ctx, currentFilter);
             const drawX = isMirrored ? 0 : x;
             const drawY = isMirrored ? 0 : y;
 
