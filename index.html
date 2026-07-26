@@ -76,7 +76,15 @@
       align-items: center;
       padding: 0.5rem;
     }
-
+    #logo {
+        display: inline-block;
+    }
+    
+    #logo img {
+        height: 2.5rem; /* h-10 = 40px */
+        width: auto;
+        display: block;
+    }
     h1,
     h2,
     h3,
@@ -118,7 +126,11 @@
       flex-direction: column;
       gap: 1rem;
     }
-
+    .preview-area {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem; /* gap-3 = 12px */
+    }
     .title-preview h2 {
       font-size: 1.125rem;
       font-weight: 700;
@@ -710,7 +722,9 @@
 
 <body>
   <header class="page-header">
-    <a id="logo" href="x.com/731chapters"><img src="logo.png" alt="Logo" class="h-10 w-auto" /></a>
+    <a id="logo" href="https://x.com/731chapters">
+        <img src="logo.png" alt="Logo">
+    </a>  
   </header>
   <main class="photobooth-page">
     <section>
