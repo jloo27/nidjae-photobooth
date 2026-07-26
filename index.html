@@ -315,6 +315,76 @@
         margin-bottom: 4px;
       }
     }
+
+    @media (max-width: 395px) {
+      #shutter-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+
+      /* Filters area stays first and scrollable */
+      #shutter-bar>div:first-child {
+        order: 1;
+        width: 100%;
+      }
+
+      /* Controls stack beneath filters */
+      #shutter-bar>div:last-child {
+        order: 2;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 0 4px;
+      }
+
+      /* Make shutter buttons compact and hide label text */
+      #shutter-btn {
+        margin-left: 0;
+        width: auto !important;
+        flex: 0 0 auto;
+        gap: 8px;
+        justify-content: flex-end;
+      }
+
+      #shutter-btn>button span {
+        display: none;
+      }
+
+      #shutter-btn>button,
+      #shutter-btn button {
+        font-size: 10px;
+        padding: 6px 8px;
+      }
+
+      #shutter-btn i {
+        font-size: 12px;
+      }
+
+      .filter-btn {
+        font-size: 10px;
+        padding: 6px 8px;
+      }
+
+      #timer-select {
+        width: 56px;
+        padding: 4px 6px;
+        font-size: 12px;
+      }
+
+      #photobooth-canvas {
+        max-height: 420px !important;
+      }
+
+      #photobooth-preview-container {
+        min-height: 240px !important;
+      }
+    }
   </style>
 </head>
 
